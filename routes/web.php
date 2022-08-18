@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\FW;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+    Route::get('/FW', FW::class);
+    Route::put('/FW/SendEmail', [FW::class, 'sendAction'])
+        ->name('FW.send');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
