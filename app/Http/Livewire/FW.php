@@ -3,7 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Mail\SendFW;
+use App\Models\Emails;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class FW extends Component
@@ -17,15 +19,20 @@ class FW extends Component
 
     public function render()
     {
-        try{
-            date_default_timezone_set('America/Monterrey');
-            $soapClient = new \soapclient($this->baseUri);
-            $response = $soapClient->FlightDetails($this->AIMSUser, $this->AIMSPass, date('d'), date('m'), date('Y'), '07', '00', date('d'), date('m'), date('Y'), '16', '00');
-            $this->flights = json_decode(json_encode($response), true);
+        if (Auth::user()->rol == 'admin' || Auth::user()->rol == 'jt' || Auth::user()->rol == 'ccv') {
+            try{
+                date_default_timezone_set('America/Monterrey');
+                $soapClient = new \soapclient($this->baseUri);
+                $response = $soapClient->FlightDetails($this->AIMSUser, $this->AIMSPass, date('d'), date('m'), date('Y'), '07', '00', date('d'), date('m'), date('Y'), '16', '00');
+                $this->flights = json_decode(json_encode($response), true);
 
-            return view('livewire.f-w');
-        }catch(Exception $e){
-            $e->getMessage();
+                return view('livewire.f-w');
+            }catch(Exception $e){
+                //$e->getMessage();
+                return view('livewire.f-w');
+            }
+        } else {
+            return view('livewire.redirect');
         }
     }
 
@@ -55,7 +62,19 @@ class FW extends Component
             'Comentarios' => 'required'
         ]);
 
-        Mail::to(['daniel.garciav@vivaaerobus.com', 'filiberto.olachea@vivaaerobus.com'])->queue(new SendFW($data));
+        $to = [];
+
+        $emails = Emails::where('active', 1)
+            ->where(function($query) {
+                $query->where('apps_id', '=', 1)
+                      ->orWhere('apps_id', '=', 2);
+            })
+            ->get('email');
+
+        foreach ($emails as $email)
+            array_push($to, $email->email);
+
+        Mail::bcc($to)->queue(new SendFW($data));
 
         return redirect()->route('dashboard');
     }

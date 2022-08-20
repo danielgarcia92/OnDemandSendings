@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
@@ -12,6 +12,21 @@
             <div>
                 <x-jet-label for="name" value="{{ __('Name') }}" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="rol" value="{{ __('Rol') }}" />
+                <select id="rol" name="rol" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" wire:model="rol">
+                    <option value=""></option>
+                    <option value="asa">ASA</option>
+                    <option value="gdl">GDL</option>
+                    <option value="mex">MEX</option>
+                    <option value="nlu">NLU</option>
+                    <option value="ccv">CCV</option>
+                    <option value="jt">Jefe de turno CCV</option>
+                    <!--<option value="admin">Administrador</option>-->
+                    <option value="cat">Centro de Atención Tecnológica</option>
+                </select>
             </div>
 
             <div class="mt-4">
@@ -57,4 +72,4 @@
             </div>
         </form>
     </x-jet-authentication-card>
-</x-guest-layout>
+</x-app-layout>

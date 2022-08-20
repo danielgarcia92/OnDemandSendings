@@ -2,17 +2,18 @@
 
 namespace Database\Seeders;
 
+use App\Models\Apps;
+use App\Models\User;
+use App\Models\Emails;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
+    /**  @return void */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory(1)->create();
+        Apps::factory()->count(5)->sequence(['name' => 'ALL'],['name' => 'FW'],['name' => 'GDL'],['name' => 'MEX'],['name' => 'NLU'])->create();
+        Emails::factory(1)->create();
     }
 }
