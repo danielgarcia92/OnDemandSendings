@@ -4,6 +4,7 @@ use App\Http\Livewire\FW;
 use App\Http\Livewire\GDL;
 use App\Http\Livewire\MEX;
 use App\Http\Livewire\NLU;
+use App\Http\Livewire\Register;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,10 +26,11 @@ Route::middleware([
         ->name('NLU');
     Route::put('/FW/SendEmail', [FW::class, 'sendAction']
     )->name('FW.Send');
+    Route::get('/register', Register::class)
+        ->name('register');
+    Route::put('/register/CreateUser', [Register::class, 'createAction']
+    )->name('register.create');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/register', function () {
-        return view('auth.register');
-    })->name('register');
 });
