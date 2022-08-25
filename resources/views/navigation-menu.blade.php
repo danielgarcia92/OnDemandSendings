@@ -45,6 +45,34 @@
                         </x-jet-nav-link>
                     </div>
                 @endif
+                @if ( Auth::user()->rol == 'gdl' || Auth::user()->rol == 'mex' || Auth::user()->rol == 'nlu' )
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
+                @if ( Auth::user()->rol == 'gdl')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('GDL') }}">
+                            {{ __('GDL') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
+                @if ( Auth::user()->rol == 'mex')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('MEX') }}">
+                            {{ __('MEX') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
+                @if ( Auth::user()->rol == 'nlu')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('NLU') }}">
+                            {{ __('NLU') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

@@ -234,8 +234,4 @@ return [
 
     ],
 
-    'base_uri'  => env('BASE_URI',  'https://VIV-aws.aims.aero/wtouch/AIMSWebService.exe/wsdl/IAIMSWebService'),
-    'AIMS_User' => env('AIMS_USER', 'ner3idAs'),
-    'AIMS_Pass' => env('AIMS_Pass', 'cPeSK4rW')
-
 ];

@@ -12,9 +12,9 @@ class FW extends Component
 {
     public function __construct()
     {
-        $this->baseUri  = config('app.base_uri');
-        $this->AIMSUser = config('app.AIMS_User');
-        $this->AIMSPass = config('app.AIMS_Pass');
+        $this->baseUri  = env('BASE_URI');
+        $this->AIMSUser = env('AIMS_USER');
+        $this->AIMSPass = env('AIMS_Pass');
     }
 
     public function render()
