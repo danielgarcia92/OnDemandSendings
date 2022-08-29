@@ -24,12 +24,17 @@ Route::middleware([
         ->name('MEX');
     Route::get('/NLU', NLU::class)
         ->name('NLU');
+
     Route::put('/FW/SendEmail', [FW::class, 'sendAction']
     )->name('FW.Send');
+    Route::put('/GDL/SendEmail', [GDL::class, 'sendAction']
+    )->name('GDL.Send');
+
     Route::get('/register', Register::class)
         ->name('register');
     Route::put('/register/CreateUser', [Register::class, 'createAction']
     )->name('register.create');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
