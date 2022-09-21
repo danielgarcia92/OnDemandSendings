@@ -29,6 +29,8 @@ Route::middleware([
     )->name('FW.Send');
     Route::put('/GDL/SendEmail', [GDL::class, 'sendAction']
     )->name('GDL.Send');
+    Route::put('/MEX/SendEmail', [MEX::class, 'sendAction']
+    )->name('MEX.Send');
 
     Route::get('/register', Register::class)
         ->name('register');
