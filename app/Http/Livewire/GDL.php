@@ -11,13 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class GDL extends Component
 {
-    public function __construct()
-    {
-        $this->baseUri  = env('BASE_URI');
-        $this->AIMSUser = env('AIMS_USER');
-        $this->AIMSPass = env('AIMS_Pass');
-    }
-
     public function render()
     {
         if (Auth::user()->rol == 'admin' || Auth::user()->rol == 'jt' || Auth::user()->rol == 'ccv' || Auth::user()->rol == 'gdl') {

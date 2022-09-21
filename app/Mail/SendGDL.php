@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -20,13 +19,10 @@ class SendGDL extends Mailable
         $this->subject = 'Asignación de vuelos GDL';
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
+    /** @return $this */
     public function build()
     {
         return $this->view('emails.sendGDL');
     }
+
 }
