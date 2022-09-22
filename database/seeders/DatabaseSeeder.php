@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory(1)->create();
-        Apps::factory()->count(5)->sequence(['name' => 'ALL'],['name' => 'FW'],['name' => 'GDL'],['name' => 'MEX'],['name' => 'NLU'])->create();
+        Apps::factory()->count(6)->sequence(['name' => 'ALL'],['name' => 'FW'],['name' => 'GDL'],['name' => 'MEX'],['name' => 'NLU'],['name' => 'ASA'])->create();
         Emails::factory(1)->create();
     }
 }

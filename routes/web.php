@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\FW;
+use App\Http\Livewire\ASA;
 use App\Http\Livewire\GDL;
 use App\Http\Livewire\MEX;
 use App\Http\Livewire\NLU;
@@ -18,6 +19,8 @@ Route::middleware([
 ])->group(function () {
     Route::get('/FW', FW::class)
         ->name('FW');
+    Route::get('/ASA', ASA::class)
+        ->name('ASA');
     Route::get('/GDL', GDL::class)
         ->name('GDL');
     Route::get('/MEX', MEX::class)
@@ -27,6 +30,8 @@ Route::middleware([
 
     Route::put('/FW/SendEmail', [FW::class, 'sendAction']
     )->name('FW.Send');
+    Route::put('/ASA/SendEmail', [ASA::class, 'sendAction']
+    )->name('ASA.Send');
     Route::put('/GDL/SendEmail', [GDL::class, 'sendAction']
     )->name('GDL.Send');
     Route::put('/MEX/SendEmail', [MEX::class, 'sendAction']
@@ -42,4 +47,5 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
 });
