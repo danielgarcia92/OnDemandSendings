@@ -74,7 +74,9 @@ class FW extends Component
         foreach ($emails as $email)
             array_push($to, $email->email);
 
-        Mail::bcc($to)->queue(new SendFW($data));
+        array_push($to, Auth::user()->email);
+
+        Mail::to($to)->queue(new SendFW($data));
 
         return redirect()->route('dashboard');
     }

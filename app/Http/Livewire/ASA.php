@@ -97,6 +97,8 @@ class ASA extends Component
         foreach ($emails as $email)
             array_push($to, $email->email);
 
+        array_push($to, Auth::user()->email);
+
         Mail::to($to)->queue(new SendASA($data));
 
         return redirect()->route('dashboard');
