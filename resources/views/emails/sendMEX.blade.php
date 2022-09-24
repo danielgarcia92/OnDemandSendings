@@ -37,7 +37,11 @@
                         <td> {{ substr($data['STA'][$key], 11) }} </td>
                         <td> {{ $data['FLT'][$key] }} </td>
                         <td> {{ $data['ARR'][$key] }} </td>
-                        <td> {{ substr($data['STD'][$key], 11) }}</td>
+                        @if($data['STD'][$key] == 'HGR')
+                            <td> {{ 'HGR' }} </td>
+                        @else
+                            <td> {{ substr($data['STD'][$key], 11) }}</td>
+                        @endif
                     </tr>
                 @endforeach
             </table>
