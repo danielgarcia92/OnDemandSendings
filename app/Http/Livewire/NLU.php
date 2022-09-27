@@ -13,7 +13,7 @@ class NLU extends Component
 {
     public function render()
     {
-        if (Auth::user()->rol == 'admin' || Auth::user()->rol == 'jt' || Auth::user()->rol == 'ccv' || Auth::user()->rol == 'nlu') {
+        if (Auth::user()->rol == 'admin' || Auth::user()->rol == 'jt' || Auth::user()->rol == 'ccv' || Auth::user()->rol == 'nlu'  || Auth::user()->rol == 'acdm' ) {
             try{
                 $OQAD = LegMain::select([\DB::raw("VIV.dbo.fn_ToAimsDate(CONVERT(datetime, GETDATE(), 103)) DATE")])->first();
 

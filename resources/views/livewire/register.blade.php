@@ -23,6 +23,7 @@
                 <option value="mex">MEX</option>
                 <option value="nlu">NLU</option>
                 <option value="ccv">CCV</option>
+                <option value="acdm">ACDM</option>
                 <option value="jt">Jefe de turno CCV</option>
                 <!--<option value="admin">Administrador</option>-->
                 <option value="cat">Centro de Atención Tecnológica</option>
