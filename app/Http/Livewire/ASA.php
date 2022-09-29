@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Mail;
 
 class ASA extends Component
 {
+    public $showDiv = false;
+
     public function render()
     {
         if (Auth::user()->rol == 'admin' || Auth::user()->rol == 'jt' || Auth::user()->rol == 'ccv' || Auth::user()->rol == 'asa'  || Auth::user()->rol == 'acdm' ) {
@@ -116,6 +118,11 @@ class ASA extends Component
         }
 
         return view('livewire.redirect');
+    }
+
+    public function openDiv()
+    {
+        $this->showDiv =! $this->showDiv;
     }
 
     public function sendAction()
