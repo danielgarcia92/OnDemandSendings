@@ -28,7 +28,7 @@
                         <div class="overflow-x-auto relative">
                             @php date_default_timezone_set('America/Monterrey'); @endphp
                             <h1 class="text-center py-4 font-semibold text-2xl text-gray-800 leading-tight"> Asignación de vuelos GDL {{ date("d-m-Y", strtotime("+1 day")) }}</h1>
-                            <input type="hidden" name="date" value="{{ date("d-m-Y") }}" />
+                            <input type="hidden" name="date" value="{{ date("d-m-Y", strtotime("+1 day")) }}" />
                             <table class="w-full py-12 text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
