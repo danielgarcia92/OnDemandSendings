@@ -12,13 +12,13 @@
     </head>
     <body>
         @php date_default_timezone_set('America/Monterrey'); @endphp
-        <h1>Asignación de vuelos de MEX para ASA {{ date("d/m/Y") }}</h1>
+        <h1>Asignación de vuelos de MEX para ASA {{ $data['date'] }}</h1>
         <h4>Este es un correo de prueba del nuevo sitio de envío de las asignaciones a demanda, favor de hacer caso omiso</h4>
 
         <div class="py-4 overflow-x-auto relative">
             <table id='customers'>
                 <tr>
-                    <th colspan='7' style='background-color:#F8CBAD; color: black;'><center>Asignación de vuelos VIVA {{ date("d-m-Y") }}</center></th>
+                    <th colspan='7' style='background-color:#F8CBAD; color: black;'><center>Asignación de vuelos VIVA {{ $data['date'] }}</center></th>
                 </tr>
                 <tr>
                     <th> Matrícula </th>
