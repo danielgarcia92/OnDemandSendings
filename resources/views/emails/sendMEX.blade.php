@@ -18,7 +18,7 @@
         <div class="py-4 overflow-x-auto relative">
             <table id='customers'>
                 <tr>
-                    <th colspan='7' style='background-color:#F8CBAD; color: black;'><center>Asignación de vuelos VIVA {{ date("d-m-Y") }}</center></th>
+                    <th colspan='7' style='background-color:#F8CBAD; color: black;'><center>Asignación de vuelos VIVA {{ $data['date'] }}</center></th>
                 </tr>
                 <tr>
                     <th> Matrícula </th>
