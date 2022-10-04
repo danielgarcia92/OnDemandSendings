@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\CSVExport;
 use App\Mail\SendGDL;
 use App\Models\Emails;
 use App\Models\LegMain;
@@ -152,6 +153,10 @@ class GDL extends Component
             array_push($to, $email->email);
 
         array_push($to, Auth::user()->email);
+
+        $CSV = new CSVExport($data);
+
+        $CSV->store('GDL.csv', 'public');
 
         Mail::to($to)->queue(new SendGDL($data));
 

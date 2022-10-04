@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\CSVExport;
 use App\Mail\SendMEX;
 use App\Models\Emails;
 use App\Models\LegMain;
@@ -152,6 +153,10 @@ class MEX extends Component
             array_push($to, $email->email);
 
         array_push($to, Auth::user()->email);
+
+        $CSV = new CSVExport($data);
+
+        $CSV->store('MEX.csv', 'public');
 
         Mail::to($to)->queue(new SendMEX($data));
 

@@ -22,7 +22,10 @@ class SendGDL extends Mailable
     /** @return $this */
     public function build()
     {
-        return $this->view('emails.sendGDL');
+        return $this->view('emails.sendGDL')
+            ->attach(storage_path('app\public\GDL.csv'), [
+                'mime' => 'text/csv',
+            ]);
     }
 
 }

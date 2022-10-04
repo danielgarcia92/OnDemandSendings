@@ -22,7 +22,10 @@ class SendNLU extends Mailable
     /** @return $this */
     public function build()
     {
-        return $this->view('emails.sendNLU');
+        return $this->view('emails.sendNLU')
+            ->attach(storage_path('app\public\NLU.csv'), [
+                'mime' => 'text/csv',
+            ]);
     }
 
 }

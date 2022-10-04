@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\CSVExport;
 use App\Mail\SendNLU;
 use App\Models\Emails;
 use App\Models\LegMain;
@@ -152,6 +153,10 @@ class NLU extends Component
             array_push($to, $email->email);
 
         array_push($to, Auth::user()->email);
+
+        $CSV = new CSVExport($data);
+
+        $CSV->store('NLU.csv', 'public');
 
         Mail::to($to)->queue(new SendNLU($data));
 

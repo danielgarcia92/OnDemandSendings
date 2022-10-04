@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\CSVExport;
 use App\Mail\SendASA;
 use App\Models\Emails;
 use App\Models\LegMain;
@@ -152,6 +153,10 @@ class ASA extends Component
             array_push($to, $email->email);
 
         array_push($to, Auth::user()->email);
+
+        $CSV = new CSVExport($data);
+
+        $CSV->store('ASA.csv', 'public');
 
         Mail::to($to)->queue(new SendASA($data));
 

@@ -23,7 +23,10 @@ class SendMEX extends Mailable
     /** @return $this */
     public function build()
     {
-        return $this->view('emails.sendMEX');
+        return $this->view('emails.sendMEX')
+            ->attach(storage_path('app\public\MEX.csv'), [
+                'mime' => 'text/csv',
+            ]);
     }
 
 }

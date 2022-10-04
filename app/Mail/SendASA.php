@@ -22,7 +22,10 @@ class SendASA extends Mailable
     /** @return $this */
     public function build()
     {
-        return $this->view('emails.sendASA');
+        return $this->view('emails.sendASA')
+            ->attach(storage_path('app\public\ASA.csv'), [
+                'mime' => 'text/csv',
+            ]);
     }
 
 }
