@@ -56,7 +56,7 @@ class GDL extends Component
                     ->where('FL.CARRIER', '=', 1)
                     ->where('FL.CANCELLED', '=', 0)
                     ->whereBetween('FL.DAY', [$OQAD2->DATE, $OQAD2->DATE + 1])
-                    ->where(\DB::raw("CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STD, FL.DEP), 120)"), '>=', \DB::raw("CAST(GETDATE() AS DATE)"))
+                    ->where(\DB::raw("CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STD, FL.DEP), 120)"), '>=', \DB::raw("CAST(GETDATE()+1 AS DATE)"))
                     ->where(function($query) use ($OQAD2) {
                         $query->where('FL.DAY', '<', $OQAD2->DATE + 1)
                             ->orWhere('FL.STA', '<=', 600);
@@ -102,7 +102,7 @@ class GDL extends Component
                     ->where('FL.CANCELLED', '=', 0)
                     ->whereBetween('FL.DAY', [$OQAD2->DATE, $OQAD2->DATE + 1])
                     ->whereNull(\DB::raw("(SELECT TOP 1 FL2.FLT FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD2->DATE." AND ".$OQAD2->DATE." + 1 AND FL2.REG = FL.REG AND FL2.DEP = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD > FL.STD) OR (FL2.DAY > FL.DAY)) AND ((FL2.DAY > ".$OQAD2->DATE." OR FL2.STD > 300) AND (FL2.DAY < ".$OQAD2->DATE." + 1 OR FL2.STD < 400)) AND CANCELLED = 0 ORDER BY FL2.DAY, FL2.STD)"))
-                    ->where(\DB::raw("CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STA, FL.ARR), 120)"), '>=', \DB::raw("CAST(GETDATE() AS DATE)"))
+                    ->where(\DB::raw("CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STA, FL.ARR), 120)"), '>=', \DB::raw("CAST(GETDATE()+1 AS DATE)"))
                     ->where(function($query) use ($OQAD2) {
                         $query->where('FL.DAY', '<', $OQAD2->DATE + 1)
                             ->orWhere('FL.STA', '<=', 600);
