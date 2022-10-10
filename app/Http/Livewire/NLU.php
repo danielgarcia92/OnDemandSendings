@@ -29,7 +29,14 @@ class NLU extends Component
                         , 'FL.FLT'
                         , 'FL.ARR'
                         , \DB::raw('CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STD, FL.DEP), 120) STD')
+                        , \DB::raw('CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, LT.ETD, FL.DEP), 120) ETD')
                     ])
+                    ->leftJoin(\DB::raw("AIMSPROD.VIV.dbo.LEGTIMES LT"), function($join){
+                        $join->on("LT.DAY","=","FL.DAY")
+                            ->on("LT.FLT","=","FL.FLT")
+                            ->on("LT.DEP","=","FL.DEP")
+                            ->on("LT.LEGCD","=","FL.LEGCD");
+                    })
                     ->where('FL.DEP', '=', 'NLU')
                     ->where('FL.CARRIER', '=', 1)
                     ->where('FL.CANCELLED', '=', 0)
@@ -51,7 +58,14 @@ class NLU extends Component
                         , 'FL.FLT'
                         , 'FL.ARR'
                         , \DB::raw('CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STD, FL.DEP), 120) STD')
+                        , \DB::raw('CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, LT.ETD, FL.DEP), 120) ETD')
                     ])
+                    ->leftJoin(\DB::raw("AIMSPROD.VIV.dbo.LEGTIMES LT"), function($join){
+                        $join->on("LT.DAY","=","FL.DAY")
+                            ->on("LT.FLT","=","FL.FLT")
+                            ->on("LT.DEP","=","FL.DEP")
+                            ->on("LT.LEGCD","=","FL.LEGCD");
+                    })
                     ->where('FL.DEP', '=', 'NLU')
                     ->where('FL.CARRIER', '=', 1)
                     ->where('FL.CANCELLED', '=', 0)
@@ -73,6 +87,7 @@ class NLU extends Component
                         , \DB::raw("'HGR' AS FLT")
                         , \DB::raw("'HGR' AS ARR")
                         , \DB::raw("'HGR' AS STD")
+                        , \DB::raw("'HGR' AS ETD")
                     ])
                     ->where('FL.ARR', '=', 'NLU')
                     ->where('FL.CARRIER', '=', 1)
@@ -96,6 +111,7 @@ class NLU extends Component
                         , \DB::raw("'HGR' AS FLT")
                         , \DB::raw("'HGR' AS ARR")
                         , \DB::raw("'HGR' AS STD")
+                        , \DB::raw("'HGR' AS ETD")
                     ])
                     ->where('FL.ARR', '=', 'NLU')
                     ->where('FL.CARRIER', '=', 1)
@@ -136,6 +152,7 @@ class NLU extends Component
             'FLT'  => 'required',
             'ARR'  => 'required',
             'STD'  => 'required',
+            'ETD'  => 'required',
             'Origen'  => 'required',
             'Llegada' => 'required'
         ]);

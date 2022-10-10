@@ -29,7 +29,14 @@ class ASA extends Component
                         , 'FL.FLT'
                         , 'FL.ARR'
                         , \DB::raw("FORMAT(DATEADD(MINUTE, -5, VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STD, FL.DEP)), 'yyyy-MM-dd HH:mm') STD")
+                        , \DB::raw("FORMAT(DATEADD(MINUTE, -5, VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, LT.ETD, FL.DEP)), 'yyyy-MM-dd HH:mm') ETD")
                     ])
+                    ->leftJoin(\DB::raw("AIMSPROD.VIV.dbo.LEGTIMES LT"), function($join){
+                        $join->on("LT.DAY","=","FL.DAY")
+                             ->on("LT.FLT","=","FL.FLT")
+                             ->on("LT.DEP","=","FL.DEP")
+                             ->on("LT.LEGCD","=","FL.LEGCD");
+                    })
                     ->where('FL.DEP', '=', 'MEX')
                     ->where('FL.CARRIER', '=', 1)
                     ->where('FL.CANCELLED', '=', 0)
@@ -43,7 +50,7 @@ class ASA extends Component
                     ->orderBy('FL.STD')
                     ->get();
 
-                $this->flights2 = \DB::table('AIMSPROD.VIV.dbo.LEGMAIN AS FL')
+                $this->flights2 = \DB::table("AIMSPROD.VIV.dbo.LEGMAIN AS FL")
                     ->select(['FL.REG'
                         , \DB::raw("CASE WHEN (SELECT TOP 1 FL2.FLT FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD2->DATE." - 1 AND ".$OQAD2->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'MEX' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) IS NULL THEN 'HGR' ELSE (SELECT TOP 1 CAST(FL2.FLT AS varchar) FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD2->DATE." - 1 AND ".$OQAD2->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'MEX' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) END 'Llegada'")
                         , \DB::raw("CASE WHEN (SELECT TOP 1 FL2.DEP FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD2->DATE." - 1 AND ".$OQAD2->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'MEX' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) IS NULL THEN 'HGR' ELSE (SELECT TOP 1 CAST(FL2.DEP AS varchar) FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD2->DATE." - 1 AND ".$OQAD2->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'MEX' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) END 'Origen'")
@@ -51,7 +58,14 @@ class ASA extends Component
                         , 'FL.FLT'
                         , 'FL.ARR'
                         , \DB::raw("FORMAT(DATEADD(MINUTE, -5, VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STD, FL.DEP)), 'yyyy-MM-dd HH:mm') STD")
+                        , \DB::raw("FORMAT(DATEADD(MINUTE, -5, VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, LT.ETD, LT.DEP)), 'yyyy-MM-dd HH:mm') ETD")
                     ])
+                    ->leftJoin(\DB::raw("AIMSPROD.VIV.dbo.LEGTIMES LT"), function($join){
+                        $join->on("LT.DAY","=","FL.DAY")
+                            ->on("LT.FLT","=","FL.FLT")
+                            ->on("LT.DEP","=","FL.DEP")
+                            ->on("LT.LEGCD","=","FL.LEGCD");
+                    })
                     ->where('FL.DEP', '=', 'MEX')
                     ->where('FL.CARRIER', '=', 1)
                     ->where('FL.CANCELLED', '=', 0)
@@ -73,6 +87,7 @@ class ASA extends Component
                         , \DB::raw("'HGR' AS FLT")
                         , \DB::raw("'HGR' AS ARR")
                         , \DB::raw("'HGR' AS STD")
+                        , \DB::raw("'HGR' AS ETD")
                     ])
                     ->where('FL.ARR', '=', 'MEX')
                     ->where('FL.CARRIER', '=', 1)
@@ -96,6 +111,7 @@ class ASA extends Component
                         , \DB::raw("'HGR' AS FLT")
                         , \DB::raw("'HGR' AS ARR")
                         , \DB::raw("'HGR' AS STD")
+                        , \DB::raw("'HGR' AS ETD")
                     ])
                     ->where('FL.ARR', '=', 'MEX')
                     ->where('FL.CARRIER', '=', 1)
@@ -136,6 +152,7 @@ class ASA extends Component
             'FLT'  => 'required',
             'ARR'  => 'required',
             'STD'  => 'required',
+            'ETD'  => 'required',
             'Origen'  => 'required',
             'Llegada' => 'required'
         ]);

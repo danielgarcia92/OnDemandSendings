@@ -27,7 +27,7 @@
                     <th> STA </th>
                     <th> Salida </th>
                     <th> Destino </th>
-                    <th> STD </th>
+                    <th> ETD </th>
                 </tr>
                 @foreach($data['KEY'] as $key => $d)
                     <tr>
@@ -37,10 +37,12 @@
                         <td> {{ substr($data['STA'][$key], 11) }} </td>
                         <td> {{ $data['FLT'][$key] }} </td>
                         <td> {{ $data['ARR'][$key] }} </td>
-                        @if($data['STD'][$key] == 'HGR')
+                        @if($data['ETD'][$key] == 'HGR')
                             <td> {{ 'HGR' }} </td>
-                        @else
+                        @elseif($data['ETD'][$key] == '')
                             <td> {{ substr($data['STD'][$key], 11) }}</td>
+                        @else
+                            <td> {{ substr($data['ETD'][$key], 11) }}</td>
                         @endif
                     </tr>
                 @endforeach

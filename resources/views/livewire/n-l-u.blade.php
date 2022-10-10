@@ -56,6 +56,9 @@
                                     <th scope="col" class="py-3 px-6">
                                         STD
                                     </th>
+                                    <th scope="col" class="py-3 px-6">
+                                        ETD
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -99,6 +102,10 @@
                                             {{ $flight->STD }}
                                             <input type="hidden" name="STD[]" value="{{ $flight->STD }}" />
                                         </td>
+                                        <td class="py-4 px-6">
+                                            {{ $flight->ETD }}
+                                            <input type="hidden" name="ETD[]" value="{{ $flight->ETD }}" />
+                                        </td>
                                     </tr>
                                 @endforeach
                                 @foreach ($flightsHGR2 as $keyHGR => $flightHGR)
@@ -134,6 +141,10 @@
                                         <td class="py-4 px-6">
                                             {{ $flightHGR->STD }}
                                             <input type="hidden" name="STD[]" value="{{ $flightHGR->STD }}" />
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            {{ $flightHGR->ETD }}
+                                            <input type="hidden" name="ETD[]" value="{{ $flightHGR->ETD }}" />
                                         </td>
                                     </tr>
                                 @endforeach
@@ -193,6 +204,9 @@
                                     <th scope="col" class="py-3 px-6">
                                         STD
                                     </th>
+                                    <th scope="col" class="py-3 px-6">
+                                        ETD
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -236,6 +250,10 @@
                                             {{ $flight->STD }}
                                             <input type="hidden" name="STD[]" value="{{ $flight->STD }}" />
                                         </td>
+                                        <td class="py-4 px-6">
+                                            {{ $flight->ETD }}
+                                            <input type="hidden" name="ETD[]" value="{{ $flight->ETD }}" />
+                                        </td>
                                     </tr>
                                 @endforeach
                                 @foreach ($flightsHGR1 as $keyHGR => $flightHGR)
@@ -271,6 +289,10 @@
                                         <td class="py-4 px-6">
                                             {{ $flightHGR->STD }}
                                             <input type="hidden" name="STD[]" value="{{ $flightHGR->STD }}" />
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            {{ $flightHGR->ETD }}
+                                            <input type="hidden" name="ETD[]" value="{{ $flightHGR->ETD }}" />
                                         </td>
                                     </tr>
                                 @endforeach
