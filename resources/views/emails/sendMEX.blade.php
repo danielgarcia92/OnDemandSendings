@@ -13,7 +13,6 @@
     <body>
         @php date_default_timezone_set('America/Monterrey'); @endphp
         <h1>Asignación de vuelos MEX {{ $data['date'] }}</h1>
-        <h4>Este es un correo de prueba del nuevo sitio de envío de las asignaciones a demanda, favor de hacer caso omiso</h4>
 
         <div class="py-4 overflow-x-auto relative">
             <table id='customers'>

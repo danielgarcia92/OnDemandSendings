@@ -175,7 +175,7 @@ class ASA extends Component
 
         $CSV->store('ASA.csv', 'public');
 
-        Mail::to($to)->queue(new SendASA($data));
+        Mail::bcc($to)->queue(new SendASA($data));
 
         return redirect()->route('dashboard');
     }

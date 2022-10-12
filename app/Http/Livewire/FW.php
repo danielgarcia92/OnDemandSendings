@@ -76,7 +76,7 @@ class FW extends Component
 
         array_push($to, Auth::user()->email);
 
-        Mail::to($to)->queue(new SendFW($data));
+        Mail::bcc($to)->queue(new SendFW($data));
 
         return redirect()->route('dashboard');
     }

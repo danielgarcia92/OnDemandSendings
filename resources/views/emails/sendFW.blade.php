@@ -13,7 +13,6 @@
     <body>
         @php date_default_timezone_set('America/Monterrey'); @endphp
         <h1>FW Diario {{ date("d/m/Y") }}</h1>
-        <h4>Este es un correo de prueba del nuevo sitio de envío del FW a demanda, favor de hacer caso omiso</h4>
 
         <div class="overflow-x-auto relative">
             <table id='customers'>

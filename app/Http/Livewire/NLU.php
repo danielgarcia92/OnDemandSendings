@@ -175,7 +175,7 @@ class NLU extends Component
 
         $CSV->store('NLU.csv', 'public');
 
-        Mail::to($to)->queue(new SendNLU($data));
+        Mail::bcc($to)->queue(new SendNLU($data));
 
         return redirect()->route('dashboard');
     }

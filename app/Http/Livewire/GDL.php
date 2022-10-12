@@ -175,7 +175,7 @@ class GDL extends Component
 
         $CSV->store('GDL.csv', 'public');
 
-        Mail::to($to)->queue(new SendGDL($data));
+        Mail::bcc($to)->queue(new SendGDL($data));
 
         return redirect()->route('dashboard');
     }

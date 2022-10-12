@@ -175,7 +175,7 @@ class MEX extends Component
 
         $CSV->store('MEX.csv', 'public');
 
-        Mail::to($to)->queue(new SendMEX($data));
+        Mail::bcc($to)->queue(new SendMEX($data));
 
         return redirect()->route('dashboard');
     }
