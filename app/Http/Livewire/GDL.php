@@ -26,6 +26,7 @@ class GDL extends Component
                         , \DB::raw("CASE WHEN (SELECT TOP 1 FL2.FLT FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD1->DATE." - 1 AND ".$OQAD1->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) IS NULL THEN 'HGR' ELSE (SELECT TOP 1 CAST(FL2.FLT AS varchar) FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD1->DATE." - 1 AND ".$OQAD1->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) END 'Llegada'")
                         , \DB::raw("CASE WHEN (SELECT TOP 1 FL2.DEP FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD1->DATE." - 1 AND ".$OQAD1->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) IS NULL THEN 'HGR' ELSE (SELECT TOP 1 CAST(FL2.DEP AS varchar) FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD1->DATE." - 1 AND ".$OQAD1->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) END 'Origen'")
                         , \DB::raw("(SELECT TOP 1 CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL2.DAY, FL2.STA, FL2.ARR), 120) FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD1->DATE." - 1 AND ".$OQAD1->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) 'STA'")
+                        , \DB::raw("(SELECT TOP 1 CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL2.DAY, LT2.ETA, FL2.ARR), 120) FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) LEFT JOIN AIMSPROD.VIV.dbo.LEGTIMES LT2 ON LT2.DAY = FL2.DAY AND LT2.FLT = FL2.FLT AND LT2.DEP = FL2.DEP AND LT2.LEGCD = FL2.LEGCD WHERE FL2.DAY BETWEEN ".$OQAD1->DATE." - 1 AND ".$OQAD1->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND FL2.CARRIER = 1 AND FL2.CANCELLED = 0 ORDER BY FL2.DAY DESC, FL2.STD DESC) 'ETA'")
                         , 'FL.FLT'
                         , 'FL.ARR'
                         , \DB::raw('CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STD, FL.DEP), 120) STD')
@@ -55,6 +56,7 @@ class GDL extends Component
                         , \DB::raw("CASE WHEN (SELECT TOP 1 FL2.FLT FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD2->DATE." - 1 AND ".$OQAD2->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) IS NULL THEN 'HGR' ELSE (SELECT TOP 1 CAST(FL2.FLT AS varchar) FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD2->DATE." - 1 AND ".$OQAD2->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) END 'Llegada'")
                         , \DB::raw("CASE WHEN (SELECT TOP 1 FL2.DEP FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD2->DATE." - 1 AND ".$OQAD2->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) IS NULL THEN 'HGR' ELSE (SELECT TOP 1 CAST(FL2.DEP AS varchar) FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD2->DATE." - 1 AND ".$OQAD2->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) END 'Origen'")
                         , \DB::raw("(SELECT TOP 1 CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL2.DAY, FL2.STA, FL2.ARR), 120) FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) WHERE FL2.DAY BETWEEN ".$OQAD2->DATE." - 1 AND ".$OQAD2->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND CARRIER = 1 AND CANCELLED = 0 ORDER BY DAY DESC, STD DESC) 'STA'")
+                        , \DB::raw("(SELECT TOP 1 CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL2.DAY, LT2.ETA, FL2.ARR), 120) FROM AIMSPROD.VIV.dbo.LEGMAIN FL2 WITH (NOLOCK) LEFT JOIN AIMSPROD.VIV.dbo.LEGTIMES LT2 ON LT2.DAY = FL2.DAY AND LT2.FLT = FL2.FLT AND LT2.DEP = FL2.DEP AND LT2.LEGCD = FL2.LEGCD WHERE FL2.DAY BETWEEN ".$OQAD2->DATE." - 1 AND ".$OQAD2->DATE." + 1 AND FL2.REG = FL.REG AND FL2.ARR = 'GDL' AND ((FL2.DAY = FL.DAY AND FL2.STD < FL.STD) OR (FL2.DAY < FL.DAY)) AND FL2.CARRIER = 1 AND FL2.CANCELLED = 0 ORDER BY FL2.DAY DESC, FL2.STD DESC) 'ETA'")
                         , 'FL.FLT'
                         , 'FL.ARR'
                         , \DB::raw('CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STD, FL.DEP), 120) STD')
@@ -84,11 +86,18 @@ class GDL extends Component
                         , 'FL.FLT AS Llegada'
                         , 'FL.DEP AS Origen'
                         , \DB::raw('CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STA, FL.ARR), 120) STA')
+                        , \DB::raw('CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, LT.ETA, FL.ARR), 120) ETA')
                         , \DB::raw("'HGR' AS FLT")
                         , \DB::raw("'HGR' AS ARR")
                         , \DB::raw("'HGR' AS STD")
                         , \DB::raw("'HGR' AS ETD")
                     ])
+                    ->leftJoin(\DB::raw("AIMSPROD.VIV.dbo.LEGTIMES LT"), function($join){
+                        $join->on("LT.DAY","=","FL.DAY")
+                            ->on("LT.FLT","=","FL.FLT")
+                            ->on("LT.DEP","=","FL.DEP")
+                            ->on("LT.LEGCD","=","FL.LEGCD");
+                    })
                     ->where('FL.ARR', '=', 'GDL')
                     ->where('FL.CARRIER', '=', 1)
                     ->where('FL.CANCELLED', '=', 0)
@@ -108,11 +117,18 @@ class GDL extends Component
                         , 'FL.FLT AS Llegada'
                         , 'FL.DEP AS Origen'
                         , \DB::raw('CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, FL.STA, FL.ARR), 120) STA')
+                        , \DB::raw('CONVERT(VARCHAR(16),VIV_CORE.dbo.GetStartTimeStrViv_V5(FL.DAY, LT.ETA, FL.ARR), 120) ETA')
                         , \DB::raw("'HGR' AS FLT")
                         , \DB::raw("'HGR' AS ARR")
                         , \DB::raw("'HGR' AS STD")
                         , \DB::raw("'HGR' AS ETD")
                     ])
+                    ->leftJoin(\DB::raw("AIMSPROD.VIV.dbo.LEGTIMES LT"), function($join){
+                        $join->on("LT.DAY","=","FL.DAY")
+                            ->on("LT.FLT","=","FL.FLT")
+                            ->on("LT.DEP","=","FL.DEP")
+                            ->on("LT.LEGCD","=","FL.LEGCD");
+                    })
                     ->where('FL.ARR', '=', 'GDL')
                     ->where('FL.CARRIER', '=', 1)
                     ->where('FL.CANCELLED', '=', 0)
@@ -148,10 +164,11 @@ class GDL extends Component
             'date' => 'required',
             'KEY'  => 'required',
             'REG'  => 'required',
-            'STA'  => 'required',
             'FLT'  => 'required',
             'ARR'  => 'required',
+            'STA'  => 'required',
             'STD'  => 'required',
+            'ETA'  => 'required',
             'ETD'  => 'required',
             'Origen'  => 'required',
             'Llegada' => 'required'

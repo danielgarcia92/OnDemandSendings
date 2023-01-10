@@ -20,7 +20,7 @@
                     <th> Matrícula </th>
                     <th> Llegada </th>
                     <th> Origen </th>
-                    <th> STA </th>
+                    <th> ETA </th>
                     <th> Salida </th>
                     <th> Destino </th>
                     <th> ETD </th>
@@ -30,7 +30,13 @@
                         <td> {{ $data['REG'][$key] }}</td>
                         <td> {{ $data['Llegada'][$key] }} </td>
                         <td> {{ $data['Origen'][$key] }} </td>
-                        <td> {{ $data['STA'][$key] }} </td>
+                        @if($data['ETA'][$key] == 'HGR')
+                            <td> {{ 'HGR' }} </td>
+                        @elseif($data['ETA'][$key] == '')
+                            <td> {{ $data['STA'][$key] }}</td>
+                        @else
+                            <td> {{ $data['ETA'][$key] }}</td>
+                        @endif
                         <td> {{ $data['FLT'][$key] }} </td>
                         <td> {{ $data['ARR'][$key] }} </td>
                         @if($data['ETD'][$key] == 'HGR')

@@ -48,6 +48,9 @@
                                         STA
                                     </th>
                                     <th scope="col" class="py-3 px-6">
+                                        ETA
+                                    </th>
+                                    <th scope="col" class="py-3 px-6">
                                         Salida
                                     </th>
                                     <th scope="col" class="py-3 px-6">
@@ -91,6 +94,10 @@
 
                                         </td>
                                         <td class="py-4 px-6">
+                                            {{ $flight->ETA }}
+                                            <input type="hidden" name="ETA[]" value="{{ $flight->ETA }}" />
+                                        </td>
+                                        <td class="py-4 px-6">
                                             {{ $flight->FLT }}
                                             <input type="hidden" name="FLT[]" value="{{ $flight->FLT }}" />
                                         </td>
@@ -129,6 +136,10 @@
                                         <td class="py-4 px-6">
                                             {{ $flightHGR->STA }}
                                             <input type="hidden" name="STA[]" value="{{ $flightHGR->STA }}" />
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            {{ $flightHGR->ETA }}
+                                            <input type="hidden" name="ETA[]" value="{{ $flightHGR->ETA }}" />
                                         </td>
                                         <td class="py-4 px-6">
                                             {{ $flightHGR->FLT }}
@@ -196,6 +207,9 @@
                                         STA
                                     </th>
                                     <th scope="col" class="py-3 px-6">
+                                        ETA
+                                    </th>
+                                    <th scope="col" class="py-3 px-6">
                                         Salida
                                     </th>
                                     <th scope="col" class="py-3 px-6">
@@ -236,7 +250,10 @@
                                                 {{ 'HGR' }}
                                                 <input type="hidden" name="STA[]" value="{{ 'HGR' }}" />
                                             @endif
-
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            {{ $flight->ETA }}
+                                            <input type="hidden" name="ETA[]" value="{{ $flight->ETA }}" />
                                         </td>
                                         <td class="py-4 px-6">
                                             {{ $flight->FLT }}
@@ -277,6 +294,10 @@
                                         <td class="py-4 px-6">
                                             {{ $flightHGR->STA }}
                                             <input type="hidden" name="STA[]" value="{{ $flightHGR->STA }}" />
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            {{ $flightHGR->ETA }}
+                                            <input type="hidden" name="ETA[]" value="{{ $flightHGR->ETA }}" />
                                         </td>
                                         <td class="py-4 px-6">
                                             {{ $flightHGR->FLT }}
