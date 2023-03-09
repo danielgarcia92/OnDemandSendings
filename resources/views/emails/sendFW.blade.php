@@ -19,50 +19,59 @@
                 <tr>
                     <th> {{ $data['FW'] }} Vuelos </th>
                     <th> {{ $data['FWD'] }} Vuelos Demorados </th>
-                    <th> {{ round(100 - $data['FWD']*100/$data['FW'], 2) }}% </th>
+                    <th> FWD 0  <br> {{ round(100 - $data['FWD']*100/$data['FW'], 2) }}% </th>
+                    <th> FWD 15 <br> {{ round(100 - $data['FWD15']*100/$data['FW'], 2) }}% </th>
                 </tr>
             </table>
         </div>
+        <br>
         <div class="py-4 overflow-x-auto relative">
             <table id='customers'>
                 <tr>
                     <th> Base </th>
                     <th> Vuelos Totales </th>
                     <th> Vuelos Demorados </th>
-                    <th> %FW </th>
+                    <th> %FWD 0 </th>
+                    <th> %FWD 15 </th>
                 </tr>
                 <tr>
                     <td> CUN </td>
                     <td> {{ $data['CUN'] }} </td>
                     <td> {{ $data['CUND'] }} </td>
                     <td> {{ round(100 - $data['CUND']*100/$data['CUN'], 2) }}% </td>
+                    <td> {{ round(100 - $data['CUND15']*100/$data['CUN'], 2) }}% </td>
                 </tr>
                 <tr>
                     <td> GDL </td>
                     <td> {{ $data['GDL'] }} </td>
                     <td> {{ $data['GDLD'] }} </td>
                     <td> {{ round(100 - $data['GDLD']*100/$data['GDL'], 2) }}% </td>
+                    <td> {{ round(100 - $data['GDLD15']*100/$data['GDL'], 2) }}% </td>
                 </tr>
                 <tr>
                     <td> MEX </td>
                     <td> {{ $data['MEX'] }} </td>
                     <td> {{ $data['MEXD'] }} </td>
                     <td> {{ round(100 - $data['MEXD']*100/$data['MEX'], 2) }}% </td>
+                    <td> {{ round(100 - $data['MEXD15']*100/$data['MEX'], 2) }}% </td>
                 </tr>
                 <tr>
                     <td> MTY </td>
                     <td> {{ $data['MTY'] }} </td>
                     <td> {{ $data['MTYD'] }} </td>
                     <td> {{ round(100 - $data['MTYD']*100/$data['MTY'], 2) }}% </td>
+                    <td> {{ round(100 - $data['MTYD15']*100/$data['MTY'], 2) }}% </td>
                 </tr>
                 <tr>
                     <td> TIJ </td>
                     <td> {{ $data['TIJ'] }} </td>
                     <td> {{ $data['TIJD'] }} </td>
                     <td> {{ round(100 - $data['TIJD']*100/$data['TIJ'], 2) }}% </td>
+                    <td> {{ round(100 - $data['TIJD15']*100/$data['TIJ'], 2) }}% </td>
                 </tr>
             </table>
         </div>
+        <br>
         <div class="py-4 overflow-x-auto relative">
             <table id='customers'>
                 <tr>
