@@ -17,7 +17,7 @@ class SendFW extends Mailable
     public function __construct($data)
     {
         $this->data = $data;
-        $this->subject = 'FW Diario';
+        $this->subject = 'FWD Diario';
     }
 
     /** @return $this */

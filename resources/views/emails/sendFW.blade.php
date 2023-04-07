@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Test FW</title>
+        <title>Correo FW</title>
         <style>
             #customers { font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; }
             #customers td, #customers th { border: 1px solid #ddd; padding: 8px; }
@@ -12,7 +12,7 @@
     </head>
     <body>
         @php date_default_timezone_set('America/Monterrey'); @endphp
-        <h1>FW Diario {{ date("d/m/Y") }}</h1>
+        <h1>FWD Diario {{ date("d/m/Y") }}</h1>
 
         <div class="overflow-x-auto relative">
             <table id='customers'>
@@ -68,6 +68,13 @@
                     <td> {{ $data['TIJD'] }} </td>
                     <td> {{ round(100 - $data['TIJD']*100/$data['TIJ'], 2) }}% </td>
                     <td> {{ round(100 - $data['TIJD15']*100/$data['TIJ'], 2) }}% </td>
+                </tr>
+                <tr>
+                    <td> TLC </td>
+                    <td> {{ $data['TLC'] }} </td>
+                    <td> {{ $data['TLCD'] }} </td>
+                    <td> {{ round(100 - $data['TLCD']*100/$data['TLC'], 2) }}% </td>
+                    <td> {{ round(100 - $data['TLCD15']*100/$data['TLC'], 2) }}% </td>
                 </tr>
             </table>
         </div>

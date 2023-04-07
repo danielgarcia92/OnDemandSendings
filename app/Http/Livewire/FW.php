@@ -28,7 +28,6 @@ class FW extends Component
 
                 return view('livewire.f-w');
             }catch(Exception $e){
-                //$e->getMessage();
                 return view('livewire.f-w');
             }
         } else {
@@ -55,16 +54,19 @@ class FW extends Component
             'MEX'   => 'required',
             'MTY'   => 'required',
             'TIJ'   => 'required',
+            'TLC'   => 'required',
             'CUND'  => 'required',
             'GDLD'  => 'required',
             'MEXD'  => 'required',
             'MTYD'  => 'required',
             'TIJD'  => 'required',
+            'TLCD'  => 'required',
             'CUND15' => 'required',
             'GDLD15' => 'required',
             'MEXD15' => 'required',
             'MTYD15' => 'required',
             'TIJD15' => 'required',
+            'TLCD15' => 'required',
             'Comentarios' => 'required'
         ]);
 

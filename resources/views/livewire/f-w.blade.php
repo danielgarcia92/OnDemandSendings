@@ -10,9 +10,9 @@
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 <div class="overflow-x-auto relative">
-                    @php $FW=0; $CUN=0;  $GDL=0; $MEX=0; $MTY=0; $TIJ=0; @endphp
-                    @php $FWD=0; $CUND=0; $GDLD=0; $MEXD=0; $MTYD=0; $TIJD=0; @endphp
-                    @php $FWD15=0; $CUND15=0; $GDLD15=0; $MEXD15=0; $MTYD15=0; $TIJD15=0; @endphp
+                    @php $FW=0; $CUN=0;  $GDL=0; $MEX=0; $MTY=0; $TIJ=0; $TLC=0; @endphp
+                    @php $FWD=0; $CUND=0; $GDLD=0; $MEXD=0; $MTYD=0; $TIJD=0; $TLCD=0; @endphp
+                    @php $FWD15=0; $CUND15=0; $GDLD15=0; $MEXD15=0; $MTYD15=0; $TIJD15=0; $TLCD15=0; @endphp
 
                     @foreach($flights['FlightList'] as $key => $flight)
                         @if($flights['FlightList'][$key]["Flags"] == 2 || $flights['FlightList'][$key]["Flags"] == 18)
@@ -83,6 +83,18 @@
                                         $time = ($time[0]*60) + ($time[1]);
                                         if($time > 15)
                                             $TIJD15 += 1;
+                                    @endphp
+                                @endif
+                            @endif
+                            @if($flights['FlightList'][$key]["FlightDep"] == 'TLC')
+                                @php $TLC += 1; @endphp
+                                @if(isset($flights['FlightList'][$key]["FlightDepDelays"][0]))
+                                    @php $TLCD += 1; @endphp
+                                    @php
+                                        $time = explode(':', $flights['FlightList'][$key]["FlightDepDelays"][0]["DelayTime"]);
+                                        $time = ($time[0]*60) + ($time[1]);
+                                        if($time > 15)
+                                            $TLCD15 += 1;
                                     @endphp
                                 @endif
                             @endif
@@ -207,6 +219,26 @@
                                 </td>
                                 <td class="py-4 px-6">
                                     {{ round(100 - $TIJD15*100/$TIJ, 2) }}%
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    TLC
+                                </th>
+                                <td class="py-4 px-6">
+                                    {{ $TLC }}
+                                    <input type="hidden" name="TLC"  value="{{ $TLC }}" />
+                                </td>
+                                <td class="py-4 px-6">
+                                    {{ $TLCD }}
+                                    <input type="hidden" name="TLCD" value="{{ $TLCD }}"/>
+                                    <input type="hidden" name="TLCD15" value="{{ $TLCD15 }}"/>
+                                </td>
+                                <td class="py-4 px-6">
+                                    {{ round(100 - $TLCD*100/$TLC, 2) }}%
+                                </td>
+                                <td class="py-4 px-6">
+                                    {{ round(100 - $TLCD15*100/$TLC, 2) }}%
                                 </td>
                             </tr>
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
