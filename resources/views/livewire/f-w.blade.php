@@ -14,92 +14,95 @@
                     @php $FWD=0; $CUND=0; $GDLD=0; $MEXD=0; $MTYD=0; $TIJD=0; $TLCD=0; @endphp
                     @php $FWD15=0; $CUND15=0; $GDLD15=0; $MEXD15=0; $MTYD15=0; $TIJD15=0; $TLCD15=0; @endphp
 
-                    @foreach($flights['FlightList'] as $key => $flight)
-                        @if($flights['FlightList'][$key]["Flags"] == 2 || $flights['FlightList'][$key]["Flags"] == 18)
-                            @php $FW += 1; @endphp
-                            @if(isset($flights['FlightList'][$key]["FlightDepDelays"][0]))
-                                @php $FWD += 1; @endphp
-                                @php
-                                    $time = explode(':', $flights['FlightList'][$key]["FlightDepDelays"][0]["DelayTime"]);
-                                    $time = ($time[0]*60) + ($time[1]);
-                                    if($time > 15)
-                                        $FWD15 += 1;
-                                @endphp
-                            @endif
-                            @if($flights['FlightList'][$key]["FlightDep"] == 'CUN')
-                                @php $CUN += 1; @endphp
-                                @if(isset($flights['FlightList'][$key]["FlightDepDelays"][0]))
-                                    @php $CUND += 1; @endphp
+                    @for($x = 0; $x < count($flightsWS['FlightList']); $x++)
+                        @for($y = 0; $y < count($flightsFW); $y++)
+                            @if("VIV".$flightsFW[$y]->Flight == $flightsWS['FlightList'][$x]["FlightDesc"] && $flightsFW[$y]->PortFrom == $flightsWS['FlightList'][$x]["FlightDep"])
+                                @php $FW += 1; @endphp
+                                @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                    @php $FWD += 1; @endphp
                                     @php
-                                        $time = explode(':', $flights['FlightList'][$key]["FlightDepDelays"][0]["DelayTime"]);
+                                        $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
                                         $time = ($time[0]*60) + ($time[1]);
                                         if($time > 15)
-                                            $CUND15 += 1;
+                                            $FWD15 += 1;
                                     @endphp
                                 @endif
-                            @endif
-                            @if($flights['FlightList'][$key]["FlightDep"] == 'GDL')
-                                @php $GDL += 1; @endphp
-                                @if(isset($flights['FlightList'][$key]["FlightDepDelays"][0]))
-                                    @php $GDLD += 1; @endphp
-                                    @php
-                                        $time = explode(':', $flights['FlightList'][$key]["FlightDepDelays"][0]["DelayTime"]);
-                                        $time = ($time[0]*60) + ($time[1]);
-                                        if($time > 15)
-                                            $GDLD15 += 1;
-                                    @endphp
+                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'CUN')
+                                    @php $CUN += 1; @endphp
+                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                        @php $CUND += 1; @endphp
+                                        @php
+                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
+                                            $time = ($time[0]*60) + ($time[1]);
+                                            if($time > 15)
+                                                $CUND15 += 1;
+                                        @endphp
+                                    @endif
+                                @endif
+                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'GDL')
+                                    @php $GDL += 1; @endphp
+                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                        @php $GDLD += 1; @endphp
+                                        @php
+                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
+                                            $time = ($time[0]*60) + ($time[1]);
+                                            if($time > 15)
+                                                $GDLD15 += 1;
+                                        @endphp
+                                    @endif
+                                @endif
+                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'MEX')
+                                    @php $MEX += 1; @endphp
+                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                        @php $MEXD += 1; @endphp
+                                        @php
+                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
+                                            $time = ($time[0]*60) + ($time[1]);
+                                            if($time > 15)
+                                                $MEXD15 += 1;
+                                        @endphp
+                                    @endif
+                                @endif
+                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'MTY')
+                                    @php $MTY += 1; @endphp
+                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                        @php $MTYD += 1; @endphp
+                                        @php
+                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
+                                            $time = ($time[0]*60) + ($time[1]);
+                                            if($time > 15)
+                                                $MTYD15 += 1;
+                                        @endphp
+                                    @endif
+                                @endif
+                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'TIJ')
+                                    @php $TIJ += 1; @endphp
+                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                        @php $TIJD += 1; @endphp
+                                        @php
+                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
+                                            $time = ($time[0]*60) + ($time[1]);
+                                            if($time > 15)
+                                                $TIJD15 += 1;
+                                        @endphp
+                                    @endif
+                                @endif
+                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'TLC')
+                                    @php $TLC += 1; @endphp
+                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                        @php $TLCD += 1; @endphp
+                                        @php
+                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
+                                            $time = ($time[0]*60) + ($time[1]);
+                                            if($time > 15)
+                                                $TLCD15 += 1;
+                                        @endphp
+                                    @endif
                                 @endif
                             @endif
-                            @if($flights['FlightList'][$key]["FlightDep"] == 'MEX')
-                                @php $MEX += 1; @endphp
-                                @if(isset($flights['FlightList'][$key]["FlightDepDelays"][0]))
-                                    @php $MEXD += 1; @endphp
-                                    @php
-                                        $time = explode(':', $flights['FlightList'][$key]["FlightDepDelays"][0]["DelayTime"]);
-                                        $time = ($time[0]*60) + ($time[1]);
-                                        if($time > 15)
-                                            $MEXD15 += 1;
-                                    @endphp
-                                @endif
-                            @endif
-                            @if($flights['FlightList'][$key]["FlightDep"] == 'MTY')
-                                @php $MTY += 1; @endphp
-                                @if(isset($flights['FlightList'][$key]["FlightDepDelays"][0]))
-                                    @php $MTYD += 1; @endphp
-                                    @php
-                                        $time = explode(':', $flights['FlightList'][$key]["FlightDepDelays"][0]["DelayTime"]);
-                                        $time = ($time[0]*60) + ($time[1]);
-                                        if($time > 15)
-                                            $MTYD15 += 1;
-                                    @endphp
-                                @endif
-                            @endif
-                            @if($flights['FlightList'][$key]["FlightDep"] == 'TIJ')
-                                @php $TIJ += 1; @endphp
-                                @if(isset($flights['FlightList'][$key]["FlightDepDelays"][0]))
-                                    @php $TIJD += 1; @endphp
-                                    @php
-                                        $time = explode(':', $flights['FlightList'][$key]["FlightDepDelays"][0]["DelayTime"]);
-                                        $time = ($time[0]*60) + ($time[1]);
-                                        if($time > 15)
-                                            $TIJD15 += 1;
-                                    @endphp
-                                @endif
-                            @endif
-                            @if($flights['FlightList'][$key]["FlightDep"] == 'TLC')
-                                @php $TLC += 1; @endphp
-                                @if(isset($flights['FlightList'][$key]["FlightDepDelays"][0]))
-                                    @php $TLCD += 1; @endphp
-                                    @php
-                                        $time = explode(':', $flights['FlightList'][$key]["FlightDepDelays"][0]["DelayTime"]);
-                                        $time = ($time[0]*60) + ($time[1]);
-                                        if($time > 15)
-                                            $TLCD15 += 1;
-                                    @endphp
-                                @endif
-                            @endif
-                        @endif
-                    @endforeach
+                        @endfor
+                    @endfor
+
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -121,146 +124,146 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    CUN
-                                </th>
-                                <td class="py-4 px-6">
-                                    {{ $CUN }}
-                                    <input type="hidden" name="CUN"  value="{{ $CUN }}" />
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ $CUND }}
-                                    <input type="hidden" name="CUND" value="{{ $CUND }}"/>
-                                    <input type="hidden" name="CUND15" value="{{ $CUND15 }}"/>
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $CUND*100/$CUN, 2) }}%
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $CUND15*100/$CUN, 2) }}%
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    GDL
-                                </th>
-                                <td class="py-4 px-6">
-                                    {{ $GDL }}
-                                    <input type="hidden" name="GDL"  value="{{ $GDL }}" />
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ $GDLD }}
-                                    <input type="hidden" name="GDLD" value="{{ $GDLD }}"/>
-                                    <input type="hidden" name="GDLD15" value="{{ $GDLD15 }}"/>
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $GDLD*100/$GDL, 2) }}%
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $GDLD15*100/$GDL, 2) }}%
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    MEX
-                                </th>
-                                <td class="py-4 px-6">
-                                    {{ $MEX }}
-                                    <input type="hidden" name="MEX"  value="{{ $MEX }}" />
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ $MEXD }}
-                                    <input type="hidden" name="MEXD" value="{{ $MEXD }}"/>
-                                    <input type="hidden" name="MEXD15" value="{{ $MEXD15 }}"/>
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $MEXD*100/$MEX, 2) }}%
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $MEXD15*100/$MEX, 2) }}%
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    MTY
-                                </th>
-                                <td class="py-4 px-6">
-                                    {{ $MTY }}
-                                    <input type="hidden" name="MTY"  value="{{ $MTY }}" />
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ $MTYD }}
-                                    <input type="hidden" name="MTYD" value="{{ $MTYD }}"/>
-                                    <input type="hidden" name="MTYD15" value="{{ $MTYD15 }}"/>
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $MTYD*100/$MTY, 2) }}%
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $MTYD15*100/$MTY, 2) }}%
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    TIJ
-                                </th>
-                                <td class="py-4 px-6">
-                                    {{ $TIJ }}
-                                    <input type="hidden" name="TIJ"  value="{{ $TIJ }}" />
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ $TIJD }}
-                                    <input type="hidden" name="TIJD" value="{{ $TIJD }}"/>
-                                    <input type="hidden" name="TIJD15" value="{{ $TIJD15 }}"/>
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $TIJD*100/$TIJ, 2) }}%
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $TIJD15*100/$TIJ, 2) }}%
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    TLC
-                                </th>
-                                <td class="py-4 px-6">
-                                    {{ $TLC }}
-                                    <input type="hidden" name="TLC"  value="{{ $TLC }}" />
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ $TLCD }}
-                                    <input type="hidden" name="TLCD" value="{{ $TLCD }}"/>
-                                    <input type="hidden" name="TLCD15" value="{{ $TLCD15 }}"/>
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $TLCD*100/$TLC, 2) }}%
-                                </td>
-                                <td class="py-4 px-6">
-                                    {{ round(100 - $TLCD15*100/$TLC, 2) }}%
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <B>Total</B>
-                                </th>
-                                <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <B>{{ $FW }}</B>
-                                    <input type="hidden" name="FW"   value="{{ $FW }}"  />
-                                </th>
-                                <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <B>{{ $FWD }}</B>
-                                    <input type="hidden" name="FWD"  value="{{ $FWD }}" />
-                                    <input type="hidden" name="FWD15"  value="{{ $FWD15 }}" />
-                                </th>
-                                <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <B>{{ round(100 - $FWD*100/$FW, 2) }}%</B>
-                                </th>
-                                <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <B>{{ round(100 - $FWD15*100/$FW, 2) }}%</B>
-                                </th>
-                            </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                CUN
+                            </th>
+                            <td class="py-4 px-6">
+                                {{ $CUN }}
+                                <input type="hidden" name="CUN"  value="{{ $CUN }}" />
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $CUND }}
+                                <input type="hidden" name="CUND" value="{{ $CUND }}"/>
+                                <input type="hidden" name="CUND15" value="{{ $CUND15 }}"/>
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $CUND*100/$CUN, 2) }}%
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $CUND15*100/$CUN, 2) }}%
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                GDL
+                            </th>
+                            <td class="py-4 px-6">
+                                {{ $GDL }}
+                                <input type="hidden" name="GDL"  value="{{ $GDL }}" />
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $GDLD }}
+                                <input type="hidden" name="GDLD" value="{{ $GDLD }}"/>
+                                <input type="hidden" name="GDLD15" value="{{ $GDLD15 }}"/>
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $GDLD*100/$GDL, 2) }}%
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $GDLD15*100/$GDL, 2) }}%
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                MEX
+                            </th>
+                            <td class="py-4 px-6">
+                                {{ $MEX }}
+                                <input type="hidden" name="MEX"  value="{{ $MEX }}" />
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $MEXD }}
+                                <input type="hidden" name="MEXD" value="{{ $MEXD }}"/>
+                                <input type="hidden" name="MEXD15" value="{{ $MEXD15 }}"/>
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $MEXD*100/$MEX, 2) }}%
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $MEXD15*100/$MEX, 2) }}%
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                MTY
+                            </th>
+                            <td class="py-4 px-6">
+                                {{ $MTY }}
+                                <input type="hidden" name="MTY"  value="{{ $MTY }}" />
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $MTYD }}
+                                <input type="hidden" name="MTYD" value="{{ $MTYD }}"/>
+                                <input type="hidden" name="MTYD15" value="{{ $MTYD15 }}"/>
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $MTYD*100/$MTY, 2) }}%
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $MTYD15*100/$MTY, 2) }}%
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                TIJ
+                            </th>
+                            <td class="py-4 px-6">
+                                {{ $TIJ }}
+                                <input type="hidden" name="TIJ"  value="{{ $TIJ }}" />
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $TIJD }}
+                                <input type="hidden" name="TIJD" value="{{ $TIJD }}"/>
+                                <input type="hidden" name="TIJD15" value="{{ $TIJD15 }}"/>
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $TIJD*100/$TIJ, 2) }}%
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $TIJD15*100/$TIJ, 2) }}%
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                TLC
+                            </th>
+                            <td class="py-4 px-6">
+                                {{ $TLC }}
+                                <input type="hidden" name="TLC"  value="{{ $TLC }}" />
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $TLCD }}
+                                <input type="hidden" name="TLCD" value="{{ $TLCD }}"/>
+                                <input type="hidden" name="TLCD15" value="{{ $TLCD15 }}"/>
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $TLCD*100/$TLC, 2) }}%
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $TLCD15*100/$TLC, 2) }}%
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <B>Total</B>
+                            </th>
+                            <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <B>{{ $FW }}</B>
+                                <input type="hidden" name="FW"   value="{{ $FW }}"  />
+                            </th>
+                            <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <B>{{ $FWD }}</B>
+                                <input type="hidden" name="FWD"  value="{{ $FWD }}" />
+                                <input type="hidden" name="FWD15"  value="{{ $FWD15 }}" />
+                            </th>
+                            <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <B>{{ round(100 - $FWD*100/$FW, 2) }}%</B>
+                            </th>
+                            <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <B>{{ round(100 - $FWD15*100/$FW, 2) }}%</B>
+                            </th>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -268,9 +271,13 @@
                 <br>
                 <br>
                 <div class="py-4 overflow-x-auto relative">
+                    <center><h1>Vuelos Demorados</h1></center>
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
+                            <th scope="col" class="py-3 px-6">
+                                #
+                            </th>
                             <th scope="col" class="py-3 px-6">
                                 REG
                             </th>
@@ -298,45 +305,100 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($flights['FlightList'] as $key => $flight)
-                            @if($flights['FlightList'][$key]["Flags"] == 2 || $flights['FlightList'][$key]["Flags"] == 18)
-                                @if(isset($flights['FlightList'][$key]["FlightDepDelays"][0]))
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $flights['FlightList'][$key]["FlightReg"] }}
-                                            <input type="hidden" name="REG[]" value="{{ $flights['FlightList'][$key]["FlightReg"] }}" />
-                                        </th>
-                                        <td class="py-4 px-6">
-                                            {{ $flights['FlightList'][$key]["FlightDesc"] }}
-                                            <input type="hidden" name="FLT[]" value="{{ $flights['FlightList'][$key]["FlightDesc"] }}" />
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            {{ $flights['FlightList'][$key]["FlightDep"] }}
-                                            <input type="hidden" name="DEP[]" value="{{ $flights['FlightList'][$key]["FlightDep"] }}" />
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            {{ $flights['FlightList'][$key]["FlightArr"] }}
-                                            <input type="hidden" name="ARR[]" value="{{ $flights['FlightList'][$key]["FlightArr"] }}" />
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            {{ $flights['FlightList'][$key]["FlightYY"] ."/". $flights['FlightList'][$key]["FlightMM"] ."/". $flights['FlightList'][$key]["FlightDD"] ."  ". $flights['FlightList'][$key]["FlightStd"] }}
-                                            <input type="hidden" name="STD[]" value="{{ $flights['FlightList'][$key]["FlightYY"] ."/". $flights['FlightList'][$key]["FlightMM"] ."/". $flights['FlightList'][$key]["FlightDD"] ."  ". $flights['FlightList'][$key]["FlightStd"] }}" />
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            {{ $flights['FlightList'][$key]["FlightDepDelays"][0]['DelayCode'] }}
-                                            <input type="hidden" name="COD[]" value="{{ $flights['FlightList'][$key]["FlightDepDelays"][0]['DelayCode'] }}" />
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            {{ $flights['FlightList'][$key]["FlightDepDelays"][0]['DelayTime'] }}
-                                            <input type="hidden" name="MIN[]" value="{{ $flights['FlightList'][$key]["FlightDepDelays"][0]['DelayTime'] }}" />
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            {{ $flights['FlightList'][$key]['DelayRemarks'] }}
-                                            <input type="hidden" name="Comentarios[]" value="{{ $flights['FlightList'][$key]['DelayRemarks'] }}" />
-                                        </td>
-                                    </tr>
+                        @php $contdel = 0; @endphp
+                        @for($x = 0; $x < count($flightsWS['FlightList']); $x++)
+                            @for($y = 0; $y < count($flightsFW); $y++)
+                                @if("VIV".$flightsFW[$y]->Flight == $flightsWS['FlightList'][$x]["FlightDesc"] && $flightsFW[$y]->PortFrom == $flightsWS['FlightList'][$x]["FlightDep"])
+                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                        @php $contdel += 1; @endphp
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $contdel }}
+                                            </th>
+                                            <td class="py-4 px-6">
+                                                {{ $flightsWS['FlightList'][$x]["FlightReg"] }}
+                                                <input type="hidden" name="REG[]" value="{{ $flightsWS['FlightList'][$x]["FlightReg"] }}" />
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                {{ $flightsWS['FlightList'][$x]["FlightDesc"] }}
+                                                <input type="hidden" name="FLT[]" value="{{ $flightsWS['FlightList'][$x]["FlightDesc"] }}" />
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                {{ $flightsWS['FlightList'][$x]["FlightDep"] }}
+                                                <input type="hidden" name="DEP[]" value="{{ $flightsWS['FlightList'][$x]["FlightDep"] }}" />
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                {{ $flightsWS['FlightList'][$x]["FlightArr"] }}
+                                                <input type="hidden" name="ARR[]" value="{{ $flightsWS['FlightList'][$x]["FlightArr"] }}" />
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                {{ $flightsWS['FlightList'][$x]["FlightYY"] ."/". $flightsWS['FlightList'][$x]["FlightMM"] ."/". $flightsWS['FlightList'][$x]["FlightDD"] ."  ". $flightsWS['FlightList'][$x]["FlightStd"] }}
+                                                <input type="hidden" name="STD[]" value="{{ $flightsWS['FlightList'][$x]["FlightYY"] ."/". $flightsWS['FlightList'][$x]["FlightMM"] ."/". $flightsWS['FlightList'][$x]["FlightDD"] ."  ". $flightsWS['FlightList'][$x]["FlightStd"] }}" />
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                {{ $flightsWS['FlightList'][$x]["FlightDepDelays"][0]['DelayCode'] }}
+                                                <input type="hidden" name="COD[]" value="{{ $flightsWS['FlightList'][$x]["FlightDepDelays"][0]['DelayCode'] }}" />
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                {{ $flightsWS['FlightList'][$x]["FlightDepDelays"][0]['DelayTime'] }}
+                                                <input type="hidden" name="MIN[]" value="{{ $flightsWS['FlightList'][$x]["FlightDepDelays"][0]['DelayTime'] }}" />
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                {{ $flightsWS['FlightList'][$x]['DelayRemarks'] }}
+                                                <input type="hidden" name="Comentarios[]" value="{{ $flightsWS['FlightList'][$x]['DelayRemarks'] }}" />
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endif
-                            @endif
+                            @endfor
+                        @endfor
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="py-4 overflow-x-auto relative">
+                    <center><h1>Total Vuelos FW</h1></center>
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="py-3 px-6">
+                                #
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                Vuelo
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                Origen
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                Destino
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                STD
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($flightsFW as $key => $flight)
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ $key + 1 }}
+                                </th>
+                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    @php print_r($flightsFW[$key]->Flight) @endphp
+                                </th>
+                                <td class="py-4 px-6">
+                                    @php print_r($flightsFW[$key]->PortFrom) @endphp
+                                </td>
+                                <td class="py-4 px-6">
+                                    @php print_r($flightsFW[$key]->PortTo) @endphp
+                                </td>
+                                <td class="py-4 px-6">
+                                    @php print_r(substr($flightsFW[$key]->STDZulu, 0, 16)) @endphp
+                                </td>
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>

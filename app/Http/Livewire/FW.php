@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Mail\SendFW;
 use App\Models\Emails;
 use Livewire\Component;
+use App\Models\NewOTP;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -23,8 +24,25 @@ class FW extends Component
             try{
                 date_default_timezone_set('America/Monterrey');
                 $soapClient = new \soapclient($this->baseUri);
-                $response = $soapClient->FlightDetails($this->AIMSUser, $this->AIMSPass, date('d'), date('m'), date('Y'), '07', '00', date('d'), date('m'), date('Y'), '16', '00');
-                $this->flights = json_decode(json_encode($response), true);
+                $response = $soapClient->FlightDetails($this->AIMSUser, $this->AIMSPass, date('d'), date('m'), date('Y'), '06', '00', date('d'), date('m'), date('Y'), '16', '00');
+                $this->flightsWS = json_decode(json_encode($response), true);
+
+                $this->flightsFW = \DB::table('bdAzureDM.vbmxods-infomgt.dbo.tbl_NewOTP AS FL')
+                    ->select(['FL.Flight'
+                        , 'PortFrom'
+                        , 'PortTo'
+                        , 'Rego'
+                        , 'Dep'
+                        , 'STDZulu'
+                        , 'Demora FWBCG'
+                        , 'Rango Demora FWBCG0'
+                        , 'Rango Demora FWBCG15'
+                    ])
+                    ->where('FL.FW-BCG', '=', '1')
+                    ->where('FL.SectorDate', '=', \DB::raw("CAST(GETDATE() AS DATE)"))
+                    ->orderBy('FL.PortFrom')
+                    ->orderBy('FL.Flight')
+                    ->get();
 
                 return view('livewire.f-w');
             }catch(Exception $e){
