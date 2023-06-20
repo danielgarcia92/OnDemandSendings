@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Mail\SendFW;
 use App\Models\Emails;
 use Livewire\Component;
-use App\Models\NewOTP;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -67,18 +66,21 @@ class FW extends Component
             'COD'   => 'required',
             'MIN'   => 'required',
             'user'  => 'required',
+            'BJX'   => 'required',
             'CUN'   => 'required',
             'GDL'   => 'required',
             'MEX'   => 'required',
             'MTY'   => 'required',
             'TIJ'   => 'required',
             'TLC'   => 'required',
+            'BJXD'  => 'required',
             'CUND'  => 'required',
             'GDLD'  => 'required',
             'MEXD'  => 'required',
             'MTYD'  => 'required',
             'TIJD'  => 'required',
             'TLCD'  => 'required',
+            'BJXD15' => 'required',
             'CUND15' => 'required',
             'GDLD15' => 'required',
             'MEXD15' => 'required',
