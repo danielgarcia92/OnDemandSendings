@@ -35,6 +35,13 @@
                     <th> %FWD 15 </th>
                 </tr>
                 <tr>
+                    <td> BJX </td>
+                    <td> {{ $data['BJX'] }} </td>
+                    <td> {{ $data['BJXD'] }} </td>
+                    <td> {{ round(100 - $data['BJXD']*100/$data['BJX'], 2) }}% </td>
+                    <td> {{ round(100 - $data['BJXD15']*100/$data['BJX'], 2) }}% </td>
+                </tr>
+                <tr>
                     <td> CUN </td>
                     <td> {{ $data['CUN'] }} </td>
                     <td> {{ $data['CUND'] }} </td>
