@@ -1,4 +1,4 @@
-<x-slot name="header">
+﻿<x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ __('FW') }}
     </h2>
@@ -14,100 +14,282 @@
                     @php $FWD=0; $BJXD=0; $CUND=0; $GDLD=0; $MEXD=0; $MTYD=0; $TIJD=0; $TLCD=0; @endphp
                     @php $FWD15=0; $BJXD15=0; $CUND15=0; $GDLD15=0; $MEXD15=0; $MTYD15=0; $TIJD15=0; $TLCD15=0; @endphp
 
-                    @for($x = 0; $x < count($flightsWS['FlightList']); $x++)
+                    @for($x = 0; $x < count($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight']); $x++)
+                        
                         @for($y = 0; $y < count($flightsFW); $y++)
-                            @if("VIV".$flightsFW[$y]->Flight == $flightsWS['FlightList'][$x]["FlightDesc"] && $flightsFW[$y]->PortFrom == $flightsWS['FlightList'][$x]["FlightDep"])
+                            @if($flightsFW[$y]->Flight == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightNo"] && $flightsFW[$y]->PortFrom == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"])
                                 @php $FW += 1; @endphp
-                                @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                
+                                @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
                                     @php $FWD += 1; @endphp
                                     @php
-                                        $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
-                                        $time = ($time[0]*60) + ($time[1]);
-                                        if($time > 15)
-                                            $FWD15 += 1;
+                                        $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+
+                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                            $minutes = 0;
+                                            foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
+                                            }
+                                        }
+                                        else{
+                                            $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
+                                        }
+
+                                        if($minutes > 15)
+                                            $FWD15 += 1;                                        
+
+                                        while ($minutes >= 60) {
+                                            if ($minutes >= 1440) {
+                                                $time['days']++;
+                                                $minutes = $minutes - 1440;
+                                            } else if ($minutes >= 60) {
+                                                $time['hours']++;
+                                                $minutes = $minutes - 60;
+                                            }
+                                        }
+
+                                        $time['minutes'] = $minutes;
+
+                                        //$time = explode(':', $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"]);
+                                        //$time = ($time[0]*60) + ($time[1]);
+                                        
                                     @endphp
                                 @endif
-                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'BJX')
+                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'BJX')
                                     @php $BJX += 1; @endphp
-                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
                                         @php $BJXD += 1; @endphp
                                         @php
-                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
-                                            $time = ($time[0]*60) + ($time[1]);
-                                            if($time > 15)
+                                            $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                $minutes = 0;
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
+                                                }
+                                            }
+                                            else{
+                                                $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
+                                            }
+                                            
+                                            if($minutes > 15)
                                                 $BJXD15 += 1;
+
+                                            while ($minutes >= 60) {
+                                                if ($minutes >= 1440) {
+                                                    $time['days']++;
+                                                    $minutes = $minutes - 1440;
+                                                } else if ($minutes >= 60) {
+                                                    $time['hours']++;
+                                                    $minutes = $minutes - 60;
+                                                }
+                                            }
+
+                                            $time['minutes'] = $minutes;
                                         @endphp
                                     @endif
                                 @endif
-                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'CUN')
+                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'CUN')
                                     @php $CUN += 1; @endphp
-                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
                                         @php $CUND += 1; @endphp
                                         @php
-                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
-                                            $time = ($time[0]*60) + ($time[1]);
-                                            if($time > 15)
+                                            $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+                                            
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                $minutes = 0;
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
+                                                }
+                                            }
+                                            else{
+                                                $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
+                                            }
+
+                                            if($minutes > 15)
                                                 $CUND15 += 1;
+
+                                            while ($minutes >= 60) {
+                                                if ($minutes >= 1440) {
+                                                    $time['days']++;
+                                                    $minutes = $minutes - 1440;
+                                                } else if ($minutes >= 60) {
+                                                    $time['hours']++;
+                                                    $minutes = $minutes - 60;
+                                                }
+                                            }
+
+                                            $time['minutes'] = $minutes;
                                         @endphp
                                     @endif
                                 @endif
-                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'GDL')
+                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'GDL')
                                     @php $GDL += 1; @endphp
-                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
                                         @php $GDLD += 1; @endphp
                                         @php
-                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
-                                            $time = ($time[0]*60) + ($time[1]);
-                                            if($time > 15)
+                                            $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+                                            
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                $minutes = 0;
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
+                                                }
+                                            }
+                                            else{
+                                                $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
+                                            }
+
+                                            if($minutes > 15)
                                                 $GDLD15 += 1;
+                                            
+                                            while ($minutes >= 60) {
+                                                if ($minutes >= 1440) {
+                                                    $time['days']++;
+                                                    $minutes = $minutes - 1440;
+                                                } else if ($minutes >= 60) {
+                                                    $time['hours']++;
+                                                    $minutes = $minutes - 60;
+                                                }
+                                            }
+
+                                            $time['minutes'] = $minutes;
                                         @endphp
                                     @endif
                                 @endif
-                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'MEX')
+                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MEX')
                                     @php $MEX += 1; @endphp
-                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
                                         @php $MEXD += 1; @endphp
                                         @php
-                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
-                                            $time = ($time[0]*60) + ($time[1]);
-                                            if($time > 15)
+                                            $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+                                            
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                $minutes = 0;
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
+                                                }
+                                            }
+                                            else{
+                                                $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
+                                            }
+
+                                            if($minutes > 15)
                                                 $MEXD15 += 1;
+
+                                            while ($minutes >= 60) {
+                                                if ($minutes >= 1440) {
+                                                    $time['days']++;
+                                                    $minutes = $minutes - 1440;
+                                                } else if ($minutes >= 60) {
+                                                    $time['hours']++;
+                                                    $minutes = $minutes - 60;
+                                                }
+                                            }
+
+                                            $time['minutes'] = $minutes;
                                         @endphp
                                     @endif
                                 @endif
-                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'MTY')
+                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MTY')
                                     @php $MTY += 1; @endphp
-                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
                                         @php $MTYD += 1; @endphp
                                         @php
-                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
-                                            $time = ($time[0]*60) + ($time[1]);
-                                            if($time > 15)
+                                            $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+                                            
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                $minutes = 0;
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
+                                                }
+                                            }
+                                            else{
+                                                $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
+                                            }
+
+                                            if($minutes > 15)
                                                 $MTYD15 += 1;
+
+                                            while ($minutes >= 60) {
+                                                if ($minutes >= 1440) {
+                                                    $time['days']++;
+                                                    $minutes = $minutes - 1440;
+                                                } else if ($minutes >= 60) {
+                                                    $time['hours']++;
+                                                    $minutes = $minutes - 60;
+                                                }
+                                            }
+
+                                            $time['minutes'] = $minutes;
                                         @endphp
                                     @endif
                                 @endif
-                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'TIJ')
+                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'TIJ')
                                     @php $TIJ += 1; @endphp
-                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
                                         @php $TIJD += 1; @endphp
                                         @php
-                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
-                                            $time = ($time[0]*60) + ($time[1]);
-                                            if($time > 15)
+                                            $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+                                            
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                $minutes = 0;
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
+                                                }
+                                            }
+                                            else{
+                                                $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
+                                            }
+
+                                            if($minutes > 15)
                                                 $TIJD15 += 1;
+
+                                            while ($minutes >= 60) {
+                                                if ($minutes >= 1440) {
+                                                    $time['days']++;
+                                                    $minutes = $minutes - 1440;
+                                                } else if ($minutes >= 60) {
+                                                    $time['hours']++;
+                                                    $minutes = $minutes - 60;
+                                                }
+                                            }
+
+                                            $time['minutes'] = $minutes;
                                         @endphp
                                     @endif
                                 @endif
-                                @if($flightsWS['FlightList'][$x]["FlightDep"] == 'TLC')
+                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'TLC')
                                     @php $TLC += 1; @endphp
-                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
                                         @php $TLCD += 1; @endphp
                                         @php
-                                            $time = explode(':', $flightsWS['FlightList'][$x]["FlightDepDelays"][0]["DelayTime"]);
-                                            $time = ($time[0]*60) + ($time[1]);
+                                            $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+                                            
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                $minutes = 0;
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
+                                                }
+                                            }
+                                            else{
+                                                $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
+                                            }
+
                                             if($time > 15)
                                                 $TLCD15 += 1;
+
+                                            while ($minutes >= 60) {
+                                                if ($minutes >= 1440) {
+                                                    $time['days']++;
+                                                    $minutes = $minutes - 1440;
+                                                } else if ($minutes >= 60) {
+                                                    $time['hours']++;
+                                                    $minutes = $minutes - 60;
+                                                }
+                                            }
+
+                                            $time['minutes'] = $minutes;
                                         @endphp
                                     @endif
                                 @endif
@@ -338,46 +520,97 @@
                         </thead>
                         <tbody>
                         @php $contdel = 0; @endphp
-                        @for($x = 0; $x < count($flightsWS['FlightList']); $x++)
+                        @for($x = 0; $x < count($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight']); $x++)
                             @for($y = 0; $y < count($flightsFW); $y++)
-                                @if("VIV".$flightsFW[$y]->Flight == $flightsWS['FlightList'][$x]["FlightDesc"] && $flightsFW[$y]->PortFrom == $flightsWS['FlightList'][$x]["FlightDep"])
-                                    @if(isset($flightsWS['FlightList'][$x]["FlightDepDelays"][0]))
+                                @if($flightsFW[$y]->Flight == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightNo"] && $flightsFW[$y]->PortFrom == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"])
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
                                         @php $contdel += 1; @endphp
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ $contdel }}
                                             </th>
                                             <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightList'][$x]["FlightReg"] }}
-                                                <input type="hidden" name="REG[]" value="{{ $flightsWS['FlightList'][$x]["FlightReg"] }}" />
+                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightReg"] }}
+                                                <input type="hidden" name="REG[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightReg"] }}" />
                                             </td>
                                             <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightList'][$x]["FlightDesc"] }}
-                                                <input type="hidden" name="FLT[]" value="{{ $flightsWS['FlightList'][$x]["FlightDesc"] }}" />
+                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDesc"] }}
+                                                <input type="hidden" name="FLT[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDesc"] }}" />
                                             </td>
                                             <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightList'][$x]["FlightDep"] }}
-                                                <input type="hidden" name="DEP[]" value="{{ $flightsWS['FlightList'][$x]["FlightDep"] }}" />
+                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] }}
+                                                <input type="hidden" name="DEP[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] }}" />
                                             </td>
                                             <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightList'][$x]["FlightArr"] }}
-                                                <input type="hidden" name="ARR[]" value="{{ $flightsWS['FlightList'][$x]["FlightArr"] }}" />
+                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightArr"] }}
+                                                <input type="hidden" name="ARR[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightArr"] }}" />
                                             </td>
                                             <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightList'][$x]["FlightYY"] ."/". $flightsWS['FlightList'][$x]["FlightMM"] ."/". $flightsWS['FlightList'][$x]["FlightDD"] ."  ". $flightsWS['FlightList'][$x]["FlightStd"] }}
-                                                <input type="hidden" name="STD[]" value="{{ $flightsWS['FlightList'][$x]["FlightYY"] ."/". $flightsWS['FlightList'][$x]["FlightMM"] ."/". $flightsWS['FlightList'][$x]["FlightDD"] ."  ". $flightsWS['FlightList'][$x]["FlightStd"] }}" />
+                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightYY"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightMM"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDD"] ."  ". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightStd"] }}
+                                                <input type="hidden" name="STD[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightYY"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightMM"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDD"] ."  ". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightStd"] }}" />
                                             </td>
                                             <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightList'][$x]["FlightDepDelays"][0]['DelayCode'] }}
-                                                <input type="hidden" name="COD[]" value="{{ $flightsWS['FlightList'][$x]["FlightDepDelays"][0]['DelayCode'] }}" />
+                                                @php
+                                                    if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayCode"])){
+                                                        foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                            echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayCode"]) . " / ";
+                                                        }
+                                                    }
+                                                    else{
+                                                        echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayCode']);
+                                                    }
+                                                        
+                                                @endphp
+                                                
+                                                    
+                                                @php
+                                                    echo "<input type='hidden' name='COD[]' value='";
+                                                    
+                                                    if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayCode"])){
+                                                    
+                                                        foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                        
+                                                            echo ($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayCode"]) . " / ";
+                                                        }
+                                                    }
+                                                    else{
+                                                        echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayCode']);
+                                                    }
+                                                    
+                                                    echo "'/>";
+                                                @endphp
+                                                    
                                             </td>
                                             <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightList'][$x]["FlightDepDelays"][0]['DelayTime'] }}
-                                                <input type="hidden" name="MIN[]" value="{{ $flightsWS['FlightList'][$x]["FlightDepDelays"][0]['DelayTime'] }}" />
+                                                @php
+                                                    if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                        foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                        
+                                                            echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"]) . " / ";
+                                                        }
+                                                    }
+                                                    else{
+                                                        echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayTime']);
+                                                    }
+                                                @endphp
+
+                                                @php
+                                                    echo "<input type='hidden' name='MIN[]' value='";
+                                                    if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                        foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                        
+                                                            echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"]) . " / ";
+                                                        }
+                                                    }
+                                                    else{
+                                                        echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayTime']);
+                                                    }
+                                                    echo "'/>";
+                                                @endphp
                                             </td>
                                             <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightList'][$x]['DelayRemarks'] }}
-                                                <input type="hidden" name="Comentarios[]" value="{{ $flightsWS['FlightList'][$x]['DelayRemarks'] }}" />
+                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]['DelayRemarks'] }}
+                                                <input type="hidden" name="Comentarios[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]['DelayRemarks'] }}" />
                                             </td>
                                         </tr>
                                     @endif

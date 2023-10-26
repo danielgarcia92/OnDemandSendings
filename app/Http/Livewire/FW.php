@@ -15,17 +15,40 @@ class FW extends Component
         $this->baseUri  = env('BASE_URI');
         $this->AIMSUser = env('AIMS_USER');
         $this->AIMSPass = env('AIMS_Pass');
+        $this->baseLocation  = env('BASE_LOCATION');
     }
 
     public function render()
     {
         if (Auth::user()->rol == 'admin' || Auth::user()->rol == 'jt' || Auth::user()->rol == 'ccv') {
-            try{
-                date_default_timezone_set('America/Monterrey');
-                $soapClient = new \soapclient($this->baseUri);
-                $response = $soapClient->FlightDetails($this->AIMSUser, $this->AIMSPass, date('d'), date('m'), date('Y'), '06', '00', date('d'), date('m'), date('Y'), '16', '00');
-                $this->flightsWS = json_decode(json_encode($response), true);
+            //try{
 
+                date_default_timezone_set('America/Monterrey');				
+
+		$params = array(
+			'UN'  => $this->AIMSUser,
+            		'PSW' => $this->AIMSPass,
+			'PM'  => array(
+				'DepArrMode' => "0",
+            	'FromHH'     => "06",
+            	'FromMin'    => "00",
+				'FromDD'     => date('d'),
+				'FromMonth'  => date('m'),
+				'FromYYYY'   => date('Y'),
+            	'ToHH'       => "21",
+            	'ToMin'      => "00",
+				'ToDD'       => date('d'),
+				'ToMonth'    => date('m'),
+				'ToYYYY'     => date('Y')
+			)
+        	);
+
+		$options = array('location'=> $this->baseLocation);
+		$soapClient = new \soapclient($this->baseUri, $options);
+		$response = $soapClient->__soapCall("FlightDetails", array($params));
+		//print_r($response);
+
+               	$this->flightsWS = json_decode(json_encode($response), true);
                 $this->flightsFW = \DB::table('bdAzureDM.vbmxods-infomgt.dbo.tbl_NewOTP AS FL')
                     ->select(['FL.Flight'
                         , 'PortFrom'
@@ -44,9 +67,9 @@ class FW extends Component
                     ->get();
 
                 return view('livewire.f-w');
-            }catch(Exception $e){
-                return view('livewire.f-w');
-            }
+            //}catch(Exception $e){
+                //return view('livewire.f-w');
+            //}
         } else {
             return view('livewire.redirect');
         }
