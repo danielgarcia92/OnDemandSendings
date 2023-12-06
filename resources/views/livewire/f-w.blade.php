@@ -10,9 +10,9 @@
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 <div class="overflow-x-auto relative">
-                    @php $FW=0; $BJX=0; $CUN=0;  $GDL=0; $MEX=0; $MTY=0; $TIJ=0; $TLC=0; @endphp
-                    @php $FWD=0; $BJXD=0; $CUND=0; $GDLD=0; $MEXD=0; $MTYD=0; $TIJD=0; $TLCD=0; @endphp
-                    @php $FWD15=0; $BJXD15=0; $CUND15=0; $GDLD15=0; $MEXD15=0; $MTYD15=0; $TIJD15=0; $TLCD15=0; @endphp
+                    @php $FW=0; $BJX=0; $CUN=0;  $GDL=0; $MEX=0; $MID=0; $MTY=0; $TIJ=0; $TLC=0; @endphp
+                    @php $FWD=0; $BJXD=0; $CUND=0; $GDLD=0; $MEXD=0; $MIDD=0; $MTYD=0; $TIJD=0; $TLCD=0; @endphp
+                    @php $FWD15=0; $BJXD15=0; $CUND15=0; $GDLD15=0; $MEXD15=0; $MIDD15=0; $MTYD15=0; $TIJD15=0; $TLCD15=0; @endphp
 
                     @for($x = 0; $x < count($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight']); $x++)
                         
@@ -176,6 +176,40 @@
 
                                             if($minutes > 15)
                                                 $MEXD15 += 1;
+
+                                            while ($minutes >= 60) {
+                                                if ($minutes >= 1440) {
+                                                    $time['days']++;
+                                                    $minutes = $minutes - 1440;
+                                                } else if ($minutes >= 60) {
+                                                    $time['hours']++;
+                                                    $minutes = $minutes - 60;
+                                                }
+                                            }
+
+                                            $time['minutes'] = $minutes;
+                                        @endphp
+                                    @endif
+                                @endif
+                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MID')
+                                    @php $MID += 1; @endphp
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                        @php $MIDD += 1; @endphp
+                                        @php
+                                            $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+                                            
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                $minutes = 0;
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
+                                                }
+                                            }
+                                            else{
+                                                $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
+                                            }
+
+                                            if($minutes > 15)
+                                                $MIDD15 += 1;
 
                                             while ($minutes >= 60) {
                                                 if ($minutes >= 1440) {
@@ -396,6 +430,26 @@
                             </td>
                             <td class="py-4 px-6">
                                 {{ round(100 - $MEXD15*100/$MEX, 2) }}%
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                MID
+                            </th>
+                            <td class="py-4 px-6">
+                                {{ $MID }}
+                                <input type="hidden" name="MID"  value="{{ $MID }}" />
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $MIDD }}
+                                <input type="hidden" name="MIDD" value="{{ $MIDD }}"/>
+                                <input type="hidden" name="MIDD15" value="{{ $MIDD15 }}"/>
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $MIDD*100/$MID, 2) }}%
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $MIDD15*100/$MID, 2) }}%
                             </td>
                         </tr>
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
