@@ -63,6 +63,13 @@
                     <td> {{ round(100 - $data['MEXD15']*100/$data['MEX'], 2) }}% </td>
                 </tr>
                 <tr>
+                    <td> MID </td>
+                    <td> {{ $data['MID'] }} </td>
+                    <td> {{ $data['MIDD'] }} </td>
+                    <td> {{ round(100 - $data['MIDD']*100/$data['MID'], 2) }}% </td>
+                    <td> {{ round(100 - $data['MIDD15']*100/$data['MID'], 2) }}% </td>
+                </tr>
+                <tr>
                     <td> MTY </td>
                     <td> {{ $data['MTY'] }} </td>
                     <td> {{ $data['MTYD'] }} </td>
