@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\FW;
+use App\Http\Livewire\FWACMI;
 use App\Http\Livewire\ASA;
 use App\Http\Livewire\GDL;
 use App\Http\Livewire\MEX;
@@ -19,6 +20,8 @@ Route::middleware([
 ])->group(function () {
     Route::get('/FW', FW::class)
         ->name('FW');
+    Route::get('/FWACMI', FWACMI::class)
+        ->name('FWACMI');
     Route::get('/ASA', ASA::class)
         ->name('ASA');
     Route::get('/GDL', GDL::class)
@@ -30,6 +33,8 @@ Route::middleware([
 
     Route::put('/FW/SendEmail', [FW::class, 'sendAction']
     )->name('FW.Send');
+    Route::put('/FWACMI/SendEmail', [FWACMI::class, 'sendAction']
+    )->name('FWACMI.Send');
     Route::put('/ASA/SendEmail', [ASA::class, 'sendAction']
     )->name('ASA.Send');
     Route::put('/GDL/SendEmail', [GDL::class, 'sendAction']

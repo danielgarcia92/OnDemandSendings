@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use App\Mail\SendFW;
+use App\Mail\SendFWACMI;
 use App\Models\Emails;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
-class FW extends Component
+class FWACMI extends Component
 {
     public function __construct()
     {
@@ -64,7 +64,7 @@ class FW extends Component
                 ->orderBy('FL.Flight')
                 ->get();
 
-            return view('livewire.f-w');
+            return view('livewire.f-w-a-c-m-i');
 
         } else {
             return view('livewire.redirect');
@@ -112,22 +112,9 @@ class FW extends Component
             'Comentarios' => 'required'
         ]);
 
-        $to = [];
-
-        $emails = Emails::where('active', 1)
-            ->where(function($query) {
-                $query->where('apps_id', '=', 1)
-                      ->orWhere('apps_id', '=', 2);
-            })
-            ->get('email');
-
-        foreach ($emails as $email)
-            array_push($to, $email->email);
-
-        array_push($to, Auth::user()->email);
-
-        Mail::bcc($to)->queue(new SendFW($data));
+        Mail::to('OTP-X9@vivaaerobus.com')->queue(new SendFWACMI($data));
 
         return redirect()->route('dashboard');
     }
+
 }
