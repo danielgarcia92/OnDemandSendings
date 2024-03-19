@@ -112,21 +112,7 @@ class FW extends Component
             'Comentarios' => 'required'
         ]);
 
-        $to = [];
-
-        $emails = Emails::where('active', 1)
-            ->where(function($query) {
-                $query->where('apps_id', '=', 1)
-                      ->orWhere('apps_id', '=', 2);
-            })
-            ->get('email');
-
-        foreach ($emails as $email)
-            array_push($to, $email->email);
-
-        array_push($to, Auth::user()->email);
-
-        Mail::bcc($to)->queue(new SendFW($data));
+        Mail::bcc('fwdiario@vivaaerobus.com')->queue(new SendFW($data));
 
         return redirect()->route('dashboard');
     }
