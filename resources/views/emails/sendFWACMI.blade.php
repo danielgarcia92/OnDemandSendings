@@ -35,18 +35,6 @@
                     <th> %FWD 15 </th>
                 </tr>
                 <tr>
-                    <td> BJX </td>
-                    <td> {{ $data['BJX'] }} </td>
-                    <td> {{ $data['BJXD'] }} </td>
-                    @if($data['BJX'] == 0)
-                        <td>{{ 100 }}%</td>
-                        <td>{{ 100 }}%</td>
-                    @else
-                        <td> {{ round(100 - $data['BJXD']*100/$data['BJX'], 2) }}% </td>
-                        <td> {{ round(100 - $data['BJXD15']*100/$data['BJX'], 2) }}% </td>
-                    @endif
-                </tr>
-                <tr>
                     <td> CUN </td>
                     <td> {{ $data['CUN'] }} </td>
                     <td> {{ $data['CUND'] }} </td>
@@ -71,30 +59,6 @@
                     @endif
                 </tr>
                 <tr>
-                    <td> MEX </td>
-                    <td> {{ $data['MEX'] }} </td>
-                    <td> {{ $data['MEXD'] }} </td>
-                    @if($data['MEX'] == 0)
-                        <td>{{ 100 }}%</td>
-                        <td>{{ 100 }}%</td>
-                    @else
-                        <td> {{ round(100 - $data['MEXD']*100/$data['MEX'], 2) }}% </td>
-                        <td> {{ round(100 - $data['MEXD15']*100/$data['MEX'], 2) }}% </td>
-                    @endif
-                </tr>
-                <tr>
-                    <td> MID </td>
-                    <td> {{ $data['MID'] }} </td>
-                    <td> {{ $data['MIDD'] }} </td>
-                    @if($data['MID'] == 0)
-                        <td>{{ 100 }}%</td>
-                        <td>{{ 100 }}%</td>
-                    @else
-                        <td> {{ round(100 - $data['MIDD']*100/$data['MID'], 2) }}% </td>
-                        <td> {{ round(100 - $data['MIDD15']*100/$data['MID'], 2) }}% </td>
-                    @endif
-                </tr>
-                <tr>
                     <td> MTY </td>
                     <td> {{ $data['MTY'] }} </td>
                     <td> {{ $data['MTYD'] }} </td>
@@ -107,30 +71,16 @@
                     @endif
                 </tr>
                 <tr>
-                    <td> TIJ </td>
-                    <td> {{ $data['TIJ'] }} </td>
-                    <td> {{ $data['TIJD'] }} </td>
-                    @if($data['TIJ'] == 0)
+                    <td> NLU </td>
+                    <td> {{ $data['NLU'] }} </td>
+                    <td> {{ $data['NLUD'] }} </td>
+                    @if($data['NLU'] == 0)
                         <td>{{ 100 }}%</td>
                         <td>{{ 100 }}%</td>
                     @else
-                        <td> {{ round(100 - $data['TIJD']*100/$data['TIJ'], 2) }}% </td>
-                        <td> {{ round(100 - $data['TIJD15']*100/$data['TIJ'], 2) }}% </td>
+                        <td> {{ round(100 - $data['NLUD']*100/$data['NLU'], 2) }}% </td>
+                        <td> {{ round(100 - $data['NLUD15']*100/$data['NLU'], 2) }}% </td>
                     @endif
-                </tr>
-                <tr>
-                    <td> TLC </td>
-                    <td> {{ $data['TLC'] }} </td>
-                    <td> {{ $data['TLCD'] }} </td>
-                    @if($data['TLC'] == 0)
-                        <td>{{ 100 }}%</td>
-                        <td>{{ 100 }}%</td>
-                    @else
-                        <td> {{ round(100 - $data['TLCD']*100/$data['TLC'], 2) }}% </td>
-                        <td> {{ round(100 - $data['TLCD15']*100/$data['TLC'], 2) }}%</td>
-                    @endif
-                    <td> </td>
-                    <td>  </td>
                 </tr>
             </table>
         </div>

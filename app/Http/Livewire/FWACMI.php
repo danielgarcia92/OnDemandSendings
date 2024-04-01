@@ -22,29 +22,29 @@ class FWACMI extends Component
     {
         if (Auth::user()->rol == 'admin' || Auth::user()->rol == 'jt' || Auth::user()->rol == 'ccv') {
 
-            date_default_timezone_set('America/Monterrey');				
+            date_default_timezone_set('America/Monterrey');             
 
-    		$params = array(
-    			'UN'  => $this->AIMSUser,
-                		'PSW' => $this->AIMSPass,
-    			'PM'  => array(
-    				'DepArrMode' => "0",
-                	'FromHH'     => "06",
-                	'FromMin'    => "00",
-    				'FromDD'     => date('d'),
-    				'FromMonth'  => date('m'),
-    				'FromYYYY'   => date('Y'),
-                	'ToHH'       => "21",
-                	'ToMin'      => "00",
-    				'ToDD'       => date('d'),
-    				'ToMonth'    => date('m'),
-    				'ToYYYY'     => date('Y')
-    			)
+            $params = array(
+                'UN'  => $this->AIMSUser,
+                        'PSW' => $this->AIMSPass,
+                'PM'  => array(
+                    'DepArrMode' => "0",
+                    'FromHH'     => "06",
+                    'FromMin'    => "00",
+                    'FromDD'     => date('d'),
+                    'FromMonth'  => date('m'),
+                    'FromYYYY'   => date('Y'),
+                    'ToHH'       => "21",
+                    'ToMin'      => "00",
+                    'ToDD'       => date('d'),
+                    'ToMonth'    => date('m'),
+                    'ToYYYY'     => date('Y')
+                )
             );
 
-    		$options = array('location'=> $this->baseLocation);
-    		$soapClient = new \soapclient($this->baseUri, $options);
-    		$response = $soapClient->__soapCall("FlightDetails", array($params));
+            $options = array('location'=> $this->baseLocation);
+            $soapClient = new \soapclient($this->baseUri, $options);
+            $response = $soapClient->__soapCall("FlightDetails", array($params));
 
             $this->flightsWS = json_decode(json_encode($response), true);
             $this->flightsFW = \DB::table('bdAzureDM.vbmxods-infomgt.dbo.tbl_NewOTP AS FL')
@@ -85,30 +85,18 @@ class FWACMI extends Component
             'COD'   => 'required',
             'MIN'   => 'required',
             'user'  => 'required',
-            'BJX'   => 'required',
             'CUN'   => 'required',
             'GDL'   => 'required',
-            'MEX'   => 'required',
-            'MID'   => 'required',
             'MTY'   => 'required',
-            'TIJ'   => 'required',
-            'TLC'   => 'required',
-            'BJXD'  => 'required',
+            'NLU'   => 'required',
             'CUND'  => 'required',
             'GDLD'  => 'required',
-            'MEXD'  => 'required',
-            'MIDD'  => 'required',
             'MTYD'  => 'required',
-            'TIJD'  => 'required',
-            'TLCD'  => 'required',
-            'BJXD15' => 'required',
+            'NLUD'  => 'required',
             'CUND15' => 'required',
             'GDLD15' => 'required',
-            'MEXD15' => 'required',
-            'MIDD15' => 'required',
             'MTYD15' => 'required',
-            'TIJD15' => 'required',
-            'TLCD15' => 'required',
+            'NLUD15' => 'required',
             'Comentarios' => 'required'
         ]);
 

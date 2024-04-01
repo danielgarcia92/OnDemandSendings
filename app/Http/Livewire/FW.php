@@ -91,6 +91,7 @@ class FW extends Component
             'MEX'   => 'required',
             'MID'   => 'required',
             'MTY'   => 'required',
+            'NLU'   => 'required',
             'TIJ'   => 'required',
             'TLC'   => 'required',
             'BJXD'  => 'required',
@@ -99,6 +100,7 @@ class FW extends Component
             'MEXD'  => 'required',
             'MIDD'  => 'required',
             'MTYD'  => 'required',
+            'NLUD'  => 'required',
             'TIJD'  => 'required',
             'TLCD'  => 'required',
             'BJXD15' => 'required',
@@ -107,6 +109,7 @@ class FW extends Component
             'MEXD15' => 'required',
             'MIDD15' => 'required',
             'MTYD15' => 'required',
+            'NLUD15' => 'required',
             'TIJD15' => 'required',
             'TLCD15' => 'required',
             'Comentarios' => 'required'
