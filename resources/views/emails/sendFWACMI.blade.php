@@ -59,6 +59,18 @@
                     @endif
                 </tr>
                 <tr>
+                    <td> MEX </td>
+                    <td> {{ $data['MEX'] }} </td>
+                    <td> {{ $data['MEXD'] }} </td>
+                    @if($data['MEX'] == 0)
+                        <td>{{ 100 }}%</td>
+                        <td>{{ 100 }}%</td>
+                    @else
+                        <td> {{ round(100 - $data['MEXD']*100/$data['MEX'], 2) }}% </td>
+                        <td> {{ round(100 - $data['MEXD15']*100/$data['MEX'], 2) }}% </td>
+                    @endif
+                </tr>
+                <tr>
                     <td> MTY </td>
                     <td> {{ $data['MTY'] }} </td>
                     <td> {{ $data['MTYD'] }} </td>

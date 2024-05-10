@@ -430,6 +430,27 @@
                         </tr>
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                MEX
+                            </th>
+                            <td class="py-4 px-6">
+                                {{ $MEX }}
+                                <input type="hidden" name="MEX"  value="{{ $MEX }}" />
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $MEXD }}
+                                <input type="hidden" name="MEXD" value="{{ $MEXD }}"/>
+                                <input type="hidden" name="MEXD15" value="{{ $MEXD15 }}"/>
+                            </td>
+                            @if($MEX == 0)
+                                <td class="py-4 px-6">{{ 100 }}%</td>
+                                <td class="py-4 px-6">{{ 100 }}%</td>
+                            @else
+                                <td class="py-4 px-6">{{ round(100 - $MEXD*100/$MEX, 2) }}%</td>
+                                <td class="py-4 px-6">{{ round(100 - $MEXD15*100/$MEX, 2) }}%</td>
+                            @endif
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 MTY
                             </th>
                             <td class="py-4 px-6">
