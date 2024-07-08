@@ -60,6 +60,7 @@ class FW extends Component
                 ])
                 ->where('FL.FW-BCG', '=', '1')
                 ->where('FL.SectorDate', '=', \DB::raw("CAST(GETDATE() AS DATE)"))
+                ->whereNotIn('Tipo de Servicio', ['Additional Shuttle  ', 'Charter Special Svc', 'Positioning/Ferry', 'Scheduled Cargo', 'Scheduled Shuttle', 'Tech Stop', 'Technical/Test', 'Training'])
                 ->orderBy('FL.PortFrom')
                 ->orderBy('FL.Flight')
                 ->get();
