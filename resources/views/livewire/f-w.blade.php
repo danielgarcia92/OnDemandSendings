@@ -20,7 +20,7 @@
                             @if($flightsFW[$y]->Flight == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightNo"] && $flightsFW[$y]->PortFrom == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] && $flightsFW[$y]->PortTo == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightArr"])
                                 @php $FW += 1; @endphp
                                 
-                                @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P')
                                     @php $FWD += 1; @endphp
                                     @php
                                         $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
@@ -57,7 +57,7 @@
                                 @endif
                                 @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'BJX')
                                     @php $BJX += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P')
                                         @php $BJXD += 1; @endphp
                                         @php
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
@@ -91,7 +91,7 @@
                                 @endif
                                 @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'CUN')
                                     @php $CUN += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P')
                                         @php $CUND += 1; @endphp
                                         @php
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
@@ -125,7 +125,7 @@
                                 @endif
                                 @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'GDL')
                                     @php $GDL += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P')
                                         @php $GDLD += 1; @endphp
                                         @php
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
@@ -159,7 +159,7 @@
                                 @endif
                                 @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MEX')
                                     @php $MEX += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P')
                                         @php $MEXD += 1; @endphp
                                         @php
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
@@ -193,7 +193,7 @@
                                 @endif
                                 @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MID')
                                     @php $MID += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P')
                                         @php $MIDD += 1; @endphp
                                         @php
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
@@ -227,7 +227,7 @@
                                 @endif
                                 @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MTY')
                                     @php $MTY += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P')
                                         @php $MTYD += 1; @endphp
                                         @php
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
@@ -261,7 +261,7 @@
                                 @endif
                                 @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'NLU')
                                     @php $NLU += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P')
                                         @php $NLUD += 1; @endphp
                                         @php
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
@@ -295,7 +295,7 @@
                                 @endif
                                 @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'TIJ')
                                     @php $TIJ += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P')
                                         @php $TIJD += 1; @endphp
                                         @php
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
@@ -329,7 +329,7 @@
                                 @endif
                                 @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'TLC')
                                     @php $TLC += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P')
                                         @php $TLCD += 1; @endphp
                                         @php
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
