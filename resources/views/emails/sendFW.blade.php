@@ -104,6 +104,7 @@
             <table id='customers'>
                 <tr>
                     <th>Estación</th>
+                    <th>Matrícula</th>
                     <th>Vuelo</th>
                     <th>Código</th>
                     <th>Minutos</th>
@@ -112,6 +113,7 @@
                 @foreach($data['DEP'] as $key => $d)
                     <tr>
                         <td> {{ $data['DEP'][$key] }} </td>
+                        <td> {{ $data['REG'][$key] }} </td>
                         <td> {{ $data['FLT'][$key] }} </td>
                         <td> {{ $data['COD'][$key] }} </td>
                         <td> {{ $data['MIN'][$key] }} </td>
