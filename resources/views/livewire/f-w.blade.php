@@ -741,7 +741,7 @@
                         @php $contdel = 0; @endphp
                         @for($x = 0; $x < count($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight']); $x++)
                             @for($y = 0; $y < count($flightsFW); $y++)
-                                @if($flightsFW[$y]->Flight == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightNo"] && $flightsFW[$y]->PortFrom == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] && $flightsFW[$y]->PortTo == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightArr"])
+                                @if($flightsFW[$y]->Flight == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightNo"] && $flightsFW[$y]->PortFrom == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] && $flightsFW[$y]->ActTo == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightArr"])
                                     @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
                                         @php $contdel += 1; @endphp
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
