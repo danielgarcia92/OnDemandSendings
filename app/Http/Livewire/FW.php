@@ -51,6 +51,8 @@ class FW extends Component
                 ->select(['FL.Flight'
                     , 'PortFrom'
                     , 'PortTo'
+                    , 'ActFrom'
+                    , 'ActTo'
                     , 'Rego'
                     , 'Dep'
                     , 'STDZulu'
