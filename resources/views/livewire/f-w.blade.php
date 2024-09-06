@@ -743,95 +743,106 @@
                             @for($y = 0; $y < count($flightsFW); $y++)
                                 @if($flightsFW[$y]->Flight == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightNo"] && $flightsFW[$y]->PortFrom == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] && $flightsFW[$y]->ActTo == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightArr"])
                                     @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
-                                        @php $contdel += 1; @endphp
-                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $contdel }}
-                                            </th>
-                                            <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightReg"] }}
-                                                <input type="hidden" name="REG[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightReg"] }}" />
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDesc"] }}
-                                                <input type="hidden" name="FLT[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDesc"] }}" />
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] }}
-                                                <input type="hidden" name="DEP[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] }}" />
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightArr"] }}
-                                                <input type="hidden" name="ARR[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightArr"] }}" />
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightYY"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightMM"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDD"] ."  ". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightStd"] }}
-                                                <input type="hidden" name="STD[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightYY"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightMM"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDD"] ."  ". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightStd"] }}" />
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                @php
-                                                    if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayCode"])){
-                                                        foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
-                                                            echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayCode"]) . " / ";
+                                        
+                                        @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] == 'P')
+                                            {{ "Yes" }}
+                                        @elseif(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] == 'P')
+                                            {{ "Yes0" }}
+                                        @elseif(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] == 'P')
+                                            {{ "Yes1" }}
+                                        @else
+                                            @php $contdel += 1; @endphp
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{ $contdel }}
+                                                </th>
+                                                <td class="py-4 px-6">
+                                                    {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightReg"] }}
+                                                    <input type="hidden" name="REG[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightReg"] }}" />
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDesc"] }}
+                                                    <input type="hidden" name="FLT[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDesc"] }}" />
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] }}
+                                                    <input type="hidden" name="DEP[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] }}" />
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightArr"] }}
+                                                    <input type="hidden" name="ARR[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightArr"] }}" />
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightYY"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightMM"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDD"] ."  ". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightStd"] }}
+                                                    <input type="hidden" name="STD[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightYY"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightMM"] ."/". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDD"] ."  ". $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightStd"] }}" />
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    @php
+                                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayCode"])){
+                                                            foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                                echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayCode"]) . " / ";
+                                                            }
                                                         }
-                                                    }
-                                                    else{
-                                                        echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayCode']);
-                                                    }
-                                                        
-                                                @endphp
-                                                
-                                                    
-                                                @php
-                                                    echo "<input type='hidden' name='COD[]' value='";
-                                                    
-                                                    if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayCode"])){
-                                                    
-                                                        foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
-                                                        
-                                                            echo ($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayCode"]) . " / ";
+                                                        else{
+                                                            echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayCode']);
                                                         }
-                                                    }
-                                                    else{
-                                                        echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayCode']);
-                                                    }
+                                                            
+                                                    @endphp
                                                     
-                                                    echo "'/>";
-                                                @endphp
-                                                    
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                @php
-                                                    if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
-                                                        foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                         
-                                                            echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"]) . " / ";
+                                                    @php
+                                                        echo "<input type='hidden' name='COD[]' value='";
+                                                        
+                                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayCode"])){
+                                                        
+                                                            foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                            
+                                                                echo ($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayCode"]) . " / ";
+                                                            }
                                                         }
-                                                    }
-                                                    else{
-                                                        echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayTime']);
-                                                    }
-                                                @endphp
+                                                        else{
+                                                            echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayCode']);
+                                                        }
+                                                        
+                                                        echo "'/>";
+                                                    @endphp
+                                                        
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    @php
+                                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                            foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                            
+                                                                echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"]) . " / ";
+                                                            }
+                                                        }
+                                                        else{
+                                                            echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayTime']);
+                                                        }
+                                                    @endphp
 
-                                                @php
-                                                    echo "<input type='hidden' name='MIN[]' value='";
-                                                    if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
-                                                        foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
-                                                        
-                                                            echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"]) . " / ";
+                                                    @php
+                                                        echo "<input type='hidden' name='MIN[]' value='";
+                                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                            foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                            
+                                                                echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"]) . " / ";
+                                                            }
                                                         }
-                                                    }
-                                                    else{
-                                                        echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayTime']);
-                                                    }
-                                                    echo "'/>";
-                                                @endphp
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]['DelayRemarks'] }}
-                                                <input type="hidden" name="Comentarios[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]['DelayRemarks'] }}" />
-                                            </td>
-                                        </tr>
+                                                        else{
+                                                            echo($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]['FDelayTime']);
+                                                        }
+                                                        echo "'/>";
+                                                    @endphp
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    {{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]['DelayRemarks'] }}
+                                                    <input type="hidden" name="Comentarios[]" value="{{ $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]['DelayRemarks'] }}" />
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        
                                     @endif
                                 @endif
                             @endfor
