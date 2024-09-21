@@ -497,6 +497,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @if($BJX != 0)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 BJX
@@ -517,6 +518,7 @@
                                 {{ round(100 - $BJXD15*100/$BJX, 2) }}%
                             </td>
                         </tr>
+                        @endif
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 CUN
