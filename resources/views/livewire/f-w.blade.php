@@ -29,6 +29,8 @@
                                             $minutes = 0;
                                             foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
+                                                    $FWD += 1;
+
                                                     $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
                                                 }else{
                                                     break;
@@ -38,14 +40,14 @@
                                         }
                                         else{
                                             if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
+                                                $FWD += 1;
+                                                
                                                 $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
                                             }else{
                                                 break;
                                             }
                                                 
                                         }
-
-                                        $FWD += 1;
 
                                         if($minutes > 15)
                                             $FWD15 += 1;                                        
@@ -78,6 +80,8 @@
                                                 $minutes = 0;
                                                 foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                     if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
+                                                        $BJXD += 1;
+
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
                                                     }else{
                                                         break;
@@ -86,14 +90,14 @@
                                             }
                                             else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
+                                                    $BJXD += 1;
+
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
                                                 }else{
                                                     break;
                                                 }
                                                 
                                             }
-
-                                            $BJXD += 1;
                                             
                                             if($minutes > 15)
                                                 $BJXD15 += 1;
@@ -123,6 +127,8 @@
                                                 $minutes = 0;
                                                 foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                     if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
+                                                        $CUND += 1;
+
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
                                                     }else{
                                                         break;
@@ -131,14 +137,14 @@
                                             }
                                             else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
+                                                    $CUND += 1;
+
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
                                                 }else{
                                                     break;
                                                 }
                                                 
                                             }
-
-                                            $CUND += 1;
 
                                             if($minutes > 15)
                                                 $CUND15 += 1;
@@ -168,6 +174,8 @@
                                                 $minutes = 0;
                                                 foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                     if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
+                                                        $GDLD += 1;
+
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
                                                     }else{
                                                         break;
@@ -176,14 +184,14 @@
                                             }
                                             else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
+                                                    $GDLD += 1;
+
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
                                                 }else{
                                                     break;
                                                 }
                                                 
                                             }
-
-                                            $GDLD += 1;
 
                                             if($minutes > 15)
                                                 $GDLD15 += 1;
@@ -213,6 +221,8 @@
                                                 $minutes = 0;
                                                 foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                     if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
+                                                        $MEXD += 1;
+
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
                                                     }else{
                                                         break;
@@ -221,14 +231,14 @@
                                             }
                                             else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
+                                                    $MEXD += 1;
+
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
                                                 }else{
                                                     break;
                                                 }
                                                 
                                             }
-
-                                            $MEXD += 1;
 
                                             if($minutes > 15)
                                                 $MEXD15 += 1;
@@ -258,6 +268,8 @@
                                                 $minutes = 0;
                                                 foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                     if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
+                                                        $MIDD += 1;
+
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
                                                     }else{
                                                         break;
@@ -266,14 +278,14 @@
                                             }
                                             else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
+                                                    $MIDD += 1;
+
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
                                                 }else{
                                                     break;
                                                 }
                                                 
                                             }
-
-                                            $MIDD += 1;
 
                                             if($minutes > 15)
                                                 $MIDD15 += 1;
@@ -303,6 +315,8 @@
                                                 $minutes = 0;
                                                 foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                     if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
+                                                        $MTYD += 1;
+
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
                                                     }else{
                                                         break;
@@ -311,14 +325,14 @@
                                             }
                                             else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
+                                                    $MTYD += 1;
+
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
                                                 }else{
                                                     break;
                                                 }
                                                 
                                             }
-
-                                            $MTYD += 1;
 
                                             if($minutes > 15)
                                                 $MTYD15 += 1;
@@ -348,6 +362,8 @@
                                                 $minutes = 0;
                                                 foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                     if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
+                                                        $NLUD += 1;
+
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
                                                     }else{
                                                         break;
@@ -356,14 +372,14 @@
                                             }
                                             else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
+                                                    $NLUD += 1;
+
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
                                                 }else{
                                                     break;
                                                 }
                                                 
                                             }
-
-                                            $NLUD += 1;
 
                                             if($minutes > 15)
                                                 $NLUD15 += 1;
@@ -393,6 +409,8 @@
                                                 $minutes = 0;
                                                 foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                     if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
+                                                        $TIJD += 1;
+
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
                                                     }else{
                                                         break;
@@ -401,14 +419,14 @@
                                             }
                                             else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
+                                                    $TIJD += 1;
+
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
                                                 }else{
                                                     break;
                                                 }
                                                 
                                             }
-
-                                            $TIJD += 1;
 
                                             if($minutes > 15)
                                                 $TIJD15 += 1;
@@ -438,6 +456,8 @@
                                                 $minutes = 0;
                                                 foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                     if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
+                                                        $TLCD += 1;
+
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
                                                     }else{
                                                         break;
@@ -446,14 +466,14 @@
                                             }
                                             else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
+                                                    $TLCD += 1;
+
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
                                                 }else{
                                                     break;
                                                 }
                                                 
                                             }
-
-                                            $TLCD += 1;
 
                                             if($time > 15)
                                                 $TLCD15 += 1;
@@ -519,6 +539,7 @@
                             </td>
                         </tr>
                         @endif
+                        @if($CUN != 0)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 CUN
@@ -539,6 +560,8 @@
                                 {{ round(100 - $CUND15*100/$CUN, 2) }}%
                             </td>
                         </tr>
+                        @endif
+                        @if($GDL != 0)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 GDL
@@ -559,6 +582,8 @@
                                 {{ round(100 - $GDLD15*100/$GDL, 2) }}%
                             </td>
                         </tr>
+                        @endif
+                        @if($MEX != 0)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 MEX
@@ -579,6 +604,8 @@
                                 {{ round(100 - $MEXD15*100/$MEX, 2) }}%
                             </td>
                         </tr>
+                        @endif
+                        @if($MID != 0)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 MID
@@ -599,6 +626,8 @@
                                 {{ round(100 - $MIDD15*100/$MID, 2) }}%
                             </td>
                         </tr>
+                        @endif
+                        @if($MTY != 0)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 MTY
@@ -619,6 +648,8 @@
                                 {{ round(100 - $MTYD15*100/$MTY, 2) }}%
                             </td>
                         </tr>
+                        @endif
+                        @if($NLU != 0)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 NLU
@@ -639,6 +670,8 @@
                                 {{ round(100 - $NLUD15*100/$NLU, 2) }}%
                             </td>
                         </tr>
+                        @endif
+                        @if($TIJ != 0)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 TIJ
@@ -659,6 +692,8 @@
                                 {{ round(100 - $TIJD15*100/$TIJ, 2) }}%
                             </td>
                         </tr>
+                        @endif
+                        @if($TLC != 0)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 TLC
@@ -679,6 +714,7 @@
                                 {{ round(100 - $TLCD15*100/$TLC, 2) }}%
                             </td>
                         </tr>
+                        @endif
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <B>Total</B>
@@ -747,11 +783,11 @@
                                     @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
                                         
                                         @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] == 'P')
-                                            {{ "Yes" }}
+                                            {{ "" }}
                                         @elseif(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] == 'P')
-                                            {{ "Yes0" }}
+                                            {{ "" }}
                                         @elseif(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"]) && $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] == 'P')
-                                            {{ "Yes1" }}
+                                            {{ "" }}
                                         @else
                                             @php $contdel += 1; @endphp
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
