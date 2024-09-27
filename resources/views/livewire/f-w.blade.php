@@ -13,42 +13,45 @@
                     @php $FW=0; $BJX=0; $CUN=0;  $GDL=0; $MEX=0; $MID=0; $MTY=0; $NLU=0; $TIJ=0; $TLC=0; @endphp
                     @php $FWD=0; $BJXD=0; $CUND=0; $GDLD=0; $MEXD=0; $MIDD=0; $MTYD=0; $NLUD=0; $TIJD=0; $TLCD=0; @endphp
                     @php $FWD15=0; $BJXD15=0; $CUND15=0; $GDLD15=0; $MEXD15=0; $MIDD15=0; $MTYD15=0; $NLUD15=0; $TIJD15=0; $TLCD15=0; @endphp
+                    <input type="hidden" name="BJX"  value="{{ $BJX }}" />
+                    <input type="hidden" name="BJXD" value="{{ $BJXD }}"/>
+                    <input type="hidden" name="BJXD15" value="{{ $BJXD15 }}"/>
+                    <input type="hidden" name="CUN"  value="{{ $CUN }}" />
+                    <input type="hidden" name="CUND" value="{{ $CUND }}"/>
+                    <input type="hidden" name="CUND15" value="{{ $CUND15 }}"/>
 
                     @for($x = 0; $x < count($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight']); $x++)
                         
                         @for($y = 0; $y < count($flightsFW); $y++)
                             @if($flightsFW[$y]->Flight == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightNo"] && $flightsFW[$y]->PortFrom == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] && $flightsFW[$y]->ActTo == $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightArr"])
-                                @php $FW += 1; @endphp
+                                @php
+                                    $FW += 1;
                                 
-                                @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) )
+                                    if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]) ) {
                                     
-                                    @php
                                         $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
 
-                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])) {
+                                            
                                             $minutes = 0;
+
+                                            if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] != 'P' || $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] != 'P') {
+                                                    $FWD += 1;
+                                                }
+
                                             foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
-                                                    $FWD += 1;
-
                                                     $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
-                                                }else{
-                                                    break;
                                                 }
-                                                
                                             }
-                                        }
-                                        else{
+                                        }else{
                                             if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
                                                 $FWD += 1;
                                                 
                                                 $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
-                                            }else{
-                                                break;
-                                            }
-                                                
+                                            }   
                                         }
-
+                                        
                                         if($minutes > 15)
                                             $FWD15 += 1;                                        
 
@@ -66,37 +69,35 @@
 
                                         //$time = explode(':', $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"]);
                                         //$time = ($time[0]*60) + ($time[1]);
+                                    }    
+                                    
+                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'BJX') {
                                         
-                                    @endphp
-                                @endif
-                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'BJX')
-                                    @php $BJX += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                        $BJX += 1;
                                         
-                                        @php
+                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"])) {
+                                        
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
 
-                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])) {
+                                                
                                                 $minutes = 0;
-                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
-                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
-                                                        $BJXD += 1;
+                                                
+                                                if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] != 'P' || $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] != 'P') {
+                                                    $BJXD += 1;
+                                                }
 
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor) {
+                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
-                                                    }else{
-                                                        break;
                                                     }
                                                 }
-                                            }
-                                            else{
+                                            }else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
                                                     $BJXD += 1;
 
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
-                                                }else{
-                                                    break;
                                                 }
-                                                
                                             }
                                             
                                             if($minutes > 15)
@@ -113,37 +114,36 @@
                                             }
 
                                             $time['minutes'] = $minutes;
-                                        @endphp
-                                    @endif
-                                @endif
-                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'CUN')
-                                    @php $CUN += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                        }
+                                    }
+                                    
+                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'CUN') {
+
+                                        $CUN += 1;
                                         
-                                        @php
+                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"])){
+                                        
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
                                             
-                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])) {
+                                                
                                                 $minutes = 0;
-                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
-                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
-                                                        $CUND += 1;
 
+                                                if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] != 'P' || $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] != 'P') {
+                                                    $CUND += 1;
+                                                }
+                                                
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"] as $clave => $valor){
+                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
-                                                    }else{
-                                                        break;
                                                     }
                                                 }
-                                            }
-                                            else{
+                                            }else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
                                                     $CUND += 1;
 
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
-                                                }else{
-                                                    break;
                                                 }
-                                                
                                             }
 
                                             if($minutes > 15)
@@ -160,37 +160,36 @@
                                             }
 
                                             $time['minutes'] = $minutes;
-                                        @endphp
-                                    @endif
-                                @endif
-                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'GDL')
-                                    @php $GDL += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                        }
+                                    }
+                                
+                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'GDL') {
+                                    
+                                        $GDL += 1;
                                         
-                                        @php
+                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"])) {
+                                        
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
                                             
-                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])) {
+                                                
                                                 $minutes = 0;
-                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
-                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
-                                                        $GDLD += 1;
 
+                                                if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] != 'P' || $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] != 'P') {
+                                                    $GDLD += 1;
+                                                }
+                                                
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P') {
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
-                                                    }else{
-                                                        break;
                                                     }
                                                 }
-                                            }
-                                            else{
+                                            }else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
                                                     $GDLD += 1;
 
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
-                                                }else{
-                                                    break;
                                                 }
-                                                
                                             }
 
                                             if($minutes > 15)
@@ -207,37 +206,35 @@
                                             }
 
                                             $time['minutes'] = $minutes;
-                                        @endphp
-                                    @endif
-                                @endif
-                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MEX')
-                                    @php $MEX += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                        }
+                                    }
+                                
+                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MEX') {
+                                    
+                                        $MEX += 1;
+                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"])) {
                                         
-                                        @php
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
                                             
-                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])) {
+                                                
                                                 $minutes = 0;
-                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
-                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
-                                                        $MEXD += 1;
 
+                                                if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] != 'P' || $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] != 'P') {
+                                                    $MEXD += 1;
+                                                }
+                                                
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P') {
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
-                                                    }else{
-                                                        break;
                                                     }
                                                 }
-                                            }
-                                            else{
+                                            }else{
                                                 if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["SubDelayCode"] != 'P'){
                                                     $MEXD += 1;
 
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
-                                                }else{
-                                                    break;
                                                 }
-                                                
                                             }
 
                                             if($minutes > 15)
@@ -254,25 +251,29 @@
                                             }
 
                                             $time['minutes'] = $minutes;
-                                        @endphp
-                                    @endif
-                                @endif
-                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MID')
-                                    @php $MID += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                        }
+                                    }
+                                
+                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MID') {
+                                    
+                                        $MID += 1;
                                         
-                                        @php
+                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"])) {
+                                        
+                                        
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
                                             
                                             if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                
                                                 $minutes = 0;
+                                                
+                                                if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] != 'P' || $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] != 'P') {
+                                                    $MIDD += 1;
+                                                }
+
                                                 foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                     if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
-                                                        $MIDD += 1;
-
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
-                                                    }else{
-                                                        break;
                                                     }
                                                 }
                                             }
@@ -281,10 +282,7 @@
                                                     $MIDD += 1;
 
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
-                                                }else{
-                                                    break;
                                                 }
-                                                
                                             }
 
                                             if($minutes > 15)
@@ -301,25 +299,28 @@
                                             }
 
                                             $time['minutes'] = $minutes;
-                                        @endphp
-                                    @endif
-                                @endif
-                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MTY')
-                                    @php $MTY += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                        }
+                                    }
+                                
+                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'MTY') {
+                                    
+                                        $MTY += 1;
                                         
-                                        @php
+                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"])) {
+                                        
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
                                             
-                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])) {
+                                                
                                                 $minutes = 0;
+                                                
+                                                if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] != 'P' || $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] != 'P') {
+                                                    $MTYD += 1;
+                                                }
+
                                                 foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
                                                     if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
-                                                        $MTYD += 1;
-
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
-                                                    }else{
-                                                        break;
                                                     }
                                                 }
                                             }
@@ -328,10 +329,7 @@
                                                     $MTYD += 1;
 
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
-                                                }else{
-                                                    break;
                                                 }
-                                                
                                             }
 
                                             if($minutes > 15)
@@ -348,25 +346,28 @@
                                             }
 
                                             $time['minutes'] = $minutes;
-                                        @endphp
-                                    @endif
-                                @endif
-                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'NLU')
-                                    @php $NLU += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                        }
+                                    }
+                                
+                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'NLU') {
                                         
-                                        @php
+                                        $NLU += 1;
+                                        
+                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"])) {
+                                        
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
                                             
-                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])) {
+                                                
                                                 $minutes = 0;
-                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
-                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
-                                                        $NLUD += 1;
+                                                
+                                                if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] != 'P' || $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] != 'P') {
+                                                    $NLUD += 1;
+                                                }
 
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P') {
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
-                                                    }else{
-                                                        break;
                                                     }
                                                 }
                                             }
@@ -375,8 +376,6 @@
                                                     $NLUD += 1;
 
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
-                                                }else{
-                                                    break;
                                                 }
                                                 
                                             }
@@ -395,25 +394,28 @@
                                             }
 
                                             $time['minutes'] = $minutes;
-                                        @endphp
-                                    @endif
-                                @endif
-                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'TIJ')
-                                    @php $TIJ += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                        }
+                                    }
+                                
+                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'TIJ') {
+                                    
+                                        $TIJ += 1;
+                                    
+                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"])) {
                                         
-                                        @php
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
                                             
-                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])) {
+                                                
                                                 $minutes = 0;
-                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
-                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
-                                                        $TIJD += 1;
 
+                                                if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] != 'P' || $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] != 'P') {
+                                                    $TIJD += 1;
+                                                }
+                                                
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P') {
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
-                                                    }else{
-                                                        break;
                                                     }
                                                 }
                                             }
@@ -422,10 +424,7 @@
                                                     $TIJD += 1;
 
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
-                                                }else{
-                                                    break;
                                                 }
-                                                
                                             }
 
                                             if($minutes > 15)
@@ -442,25 +441,28 @@
                                             }
 
                                             $time['minutes'] = $minutes;
-                                        @endphp
-                                    @endif
-                                @endif
-                                @if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'TLC')
-                                    @php $TLC += 1; @endphp
-                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                        }
+                                    }
+                                
+                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'TLC') {
+                                    
+                                        $TLC += 1;
                                         
-                                        @php
+                                        if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"])) {
+                                        
                                             $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
                                             
-                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])) {
+                                                
                                                 $minutes = 0;
-                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
-                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P'){
-                                                        $TLCD += 1;
+                                                
+                                                if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["SubDelayCode"] != 'P' || $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][1]["SubDelayCode"] != 'P') {
+                                                    $TLCD += 1;
+                                                }
 
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["SubDelayCode"] != 'P') {
                                                         $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
-                                                    }else{
-                                                        break;
                                                     }
                                                 }
                                             }
@@ -469,10 +471,7 @@
                                                     $TLCD += 1;
 
                                                     $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
-                                                }else{
-                                                    break;
                                                 }
-                                                
                                             }
 
                                             if($time > 15)
@@ -489,9 +488,9 @@
                                             }
 
                                             $time['minutes'] = $minutes;
-                                        @endphp
-                                    @endif
-                                @endif
+                                        }
+                                    }
+                                @endphp
                             @endif
                         @endfor
                     @endfor
