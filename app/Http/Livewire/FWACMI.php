@@ -112,12 +112,7 @@ class FWACMI extends Component
 
     private function aimsConfig(): array
     {
-        return [
-            'wsdl' => env('BASE_URI'),
-            'user' => env('AIMS_USER'),
-            'password' => env('AIMS_Pass'),
-            'location' => env('BASE_LOCATION'),
-        ];
+        return config('services.aims', []);
     }
 
 }

@@ -30,4 +30,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'aims' => [
+        'wsdl' => env('BASE_URI'),
+        'user' => env('AIMS_USER'),
+        'password' => env('AIMS_Pass'),
+        'location' => env('BASE_LOCATION'),
+    ],
+
 ];
