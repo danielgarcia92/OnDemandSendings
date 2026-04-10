@@ -21,8 +21,8 @@ class FWACMI extends Component
             date_default_timezone_set('America/Monterrey');             
 
             $params = array(
-                'UN'  => $this->AIMSUser,
-                'PSW' => $this->AIMSPass,
+                'UN'  => $aimsConfig['user'],
+                'PSW' => $aimsConfig['password'],
                 'PM'  => array(
                     'DepArrMode' => "0",
                     'FromHH'     => "06",
