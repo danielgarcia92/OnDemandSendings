@@ -43,7 +43,7 @@ class FW extends Component
     		$response = $soapClient->__soapCall("FlightDetails", array($params));
 
             $this->flightsWS = json_decode(json_encode($response), true);
-            $this->flightsFW = \DB::table('bdAzureDM.vbmxods-infomgt.dbo.tbl_NewOTP AS FL')
+            $this->flightsFW = \DB::table('bdAzureDM.vbmxods-infomgt.dbo.tbl_OTP_Flights AS FL')
                 ->select(['FL.Flight'
                     , 'PortFrom'
                     , 'PortTo'
@@ -85,7 +85,8 @@ class FW extends Component
             'MIN'   => 'required',
             'user'  => 'required',
             'BJX'   => 'required',
-            'CUN'   => 'required',
+            'CJS'   => 'required',
+			'CUN'   => 'required',
             'GDL'   => 'required',
             'MEX'   => 'required',
             'MID'   => 'required',
@@ -94,7 +95,8 @@ class FW extends Component
             'TIJ'   => 'required',
             'TLC'   => 'required',
             'BJXD'  => 'required',
-            'CUND'  => 'required',
+            'CJSD'  => 'required',
+			'CUND'  => 'required',
             'GDLD'  => 'required',
             'MEXD'  => 'required',
             'MIDD'  => 'required',
@@ -103,7 +105,8 @@ class FW extends Component
             'TIJD'  => 'required',
             'TLCD'  => 'required',
             'BJXD15' => 'required',
-            'CUND15' => 'required',
+            'CJSD15' => 'required',
+			'CUND15' => 'required',
             'GDLD15' => 'required',
             'MEXD15' => 'required',
             'MIDD15' => 'required',

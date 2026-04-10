@@ -12,7 +12,7 @@
     </head>
     <body>
         @php date_default_timezone_set('America/Monterrey'); @endphp
-        <h1>FWD Diario {{ date("d/m/Y") }}</h1>
+        <h1>FWD Diario ACMI {{ date("d/m/Y") }}</h1>
 
         <div class="overflow-x-auto relative">
             <table id='customers'>
@@ -34,30 +34,45 @@
                     <th> %FWD 0 </th>
                     <th> %FWD 15 </th>
                 </tr>
+				@if($data['BJX'] != 0)
+                <tr>
+                    <td> BJX </td>
+                    <td> {{ $data['BJX'] }} </td>
+                    <td> {{ $data['BJXD'] }} </td>
+                    <td> {{ round(100 - $data['BJXD']*100/$data['BJX'], 2) }}% </td>
+                    <td> {{ round(100 - $data['BJXD15']*100/$data['BJX'], 2) }}% </td>
+                </tr>
+                @endif
+				@if($data['CJS'] != 0)
+                <tr>
+                    <td> CJS </td>
+                    <td> {{ $data['CJS'] }} </td>
+                    <td> {{ $data['CJSD'] }} </td>
+                    <td> {{ round(100 - $data['CJSD']*100/$data['CJS'], 2) }}% </td>
+                    <td> {{ round(100 - $data['CJSD15']*100/$data['CJS'], 2) }}% </td>
+                </tr>
+                @endif
                 <tr>
                     <td> CUN </td>
                     <td> {{ $data['CUN'] }} </td>
                     <td> {{ $data['CUND'] }} </td>
-                    @if($data['CUN'] == 0)
+					@if($data['CUN'] != 0)
+						<td>{{ 100 }}%</td>
                         <td>{{ 100 }}%</td>
-                        <td>{{ 100 }}%</td>
-                    @else
-                        <td> {{ round(100 - $data['CUND']*100/$data['CUN'], 2) }}% </td>
-                        <td> {{ round(100 - $data['CUND15']*100/$data['CUN'], 2) }}% </td>
-                    @endif
+					@else
+						<td> {{ round(100 - $data['CUND']*100/$data['CUN'], 2) }}% </td>
+						<td> {{ round(100 - $data['CUND15']*100/$data['CUN'], 2) }}% </td>
+					@endif
                 </tr>
+                @if($data['GDL'] != 0)
                 <tr>
                     <td> GDL </td>
                     <td> {{ $data['GDL'] }} </td>
                     <td> {{ $data['GDLD'] }} </td>
-                    @if($data['GDL'] == 0)
-                        <td>{{ 100 }}%</td>
-                        <td>{{ 100 }}%</td>
-                    @else
-                        <td> {{ round(100 - $data['GDLD']*100/$data['GDL'], 2) }}% </td>
-                        <td> {{ round(100 - $data['GDLD15']*100/$data['GDL'], 2) }}% </td>
-                    @endif
+                    <td> {{ round(100 - $data['GDLD']*100/$data['GDL'], 2) }}% </td>
+                    <td> {{ round(100 - $data['GDLD15']*100/$data['GDL'], 2) }}% </td>
                 </tr>
+                @endif
                 <tr>
                     <td> MEX </td>
                     <td> {{ $data['MEX'] }} </td>
@@ -82,18 +97,15 @@
                         <td> {{ round(100 - $data['MTYD15']*100/$data['MTY'], 2) }}% </td>
                     @endif
                 </tr>
+				@if($data['NLU'] != 0)
                 <tr>
                     <td> NLU </td>
                     <td> {{ $data['NLU'] }} </td>
                     <td> {{ $data['NLUD'] }} </td>
-                    @if($data['NLU'] == 0)
-                        <td>{{ 100 }}%</td>
-                        <td>{{ 100 }}%</td>
-                    @else
-                        <td> {{ round(100 - $data['NLUD']*100/$data['NLU'], 2) }}% </td>
-                        <td> {{ round(100 - $data['NLUD15']*100/$data['NLU'], 2) }}% </td>
-                    @endif
+                    <td> {{ round(100 - $data['NLUD']*100/$data['NLU'], 2) }}% </td>
+                    <td> {{ round(100 - $data['NLUD15']*100/$data['NLU'], 2) }}% </td>
                 </tr>
+                @endif
             </table>
         </div>
         <br>

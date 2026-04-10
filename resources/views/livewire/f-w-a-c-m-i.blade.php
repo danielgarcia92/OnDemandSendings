@@ -10,10 +10,22 @@
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 <div class="overflow-x-auto relative">
-                    @php $FW=0; $BJX=0; $CUN=0;  $GDL=0; $MEX=0; $MID=0; $MTY=0; $NLU=0; $TIJ=0; $TLC=0; @endphp
-                    @php $FWD=0; $BJXD=0; $CUND=0; $GDLD=0; $MEXD=0; $MIDD=0; $MTYD=0; $NLUD=0; $TIJD=0; $TLCD=0; @endphp
-                    @php $FWD15=0; $BJXD15=0; $CUND15=0; $GDLD15=0; $MEXD15=0; $MIDD15=0; $MTYD15=0; $NLUD15=0; $TIJD15=0; $TLCD15=0; @endphp
-
+                    @php $FW=0; $BJX=0; $CJS=0; $CUN=0;  $GDL=0; $MEX=0; $MID=0; $MTY=0; $NLU=0; $TIJ=0; $TLC=0; @endphp
+                    @php $FWD=0; $BJXD=0; $CJSD=0; $CUND=0; $GDLD=0; $MEXD=0; $MIDD=0; $MTYD=0; $NLUD=0; $TIJD=0; $TLCD=0; @endphp
+                    @php $FWD15=0; $BJXD15=0; $CJSD15=0; $CUND15=0; $GDLD15=0; $MEXD15=0; $MIDD15=0; $MTYD15=0; $NLUD15=0; $TIJD15=0; $TLCD15=0; @endphp
+					<input type="hidden" name="BJX"  value="{{ $BJX }}" />
+                    <input type="hidden" name="BJXD" value="{{ $BJXD }}"/>
+                    <input type="hidden" name="BJXD15" value="{{ $BJXD15 }}"/>
+					<input type="hidden" name="CJS"  value="{{ $CJS }}" />
+                    <input type="hidden" name="CJSD" value="{{ $CJSD }}"/>
+                    <input type="hidden" name="CJSD15" value="{{ $CJSD15 }}"/>
+					<input type="hidden" name="GDL"  value="{{ $GDL }}" />
+                    <input type="hidden" name="GDLD" value="{{ $GDLD }}"/>
+                    <input type="hidden" name="GDLD15" value="{{ $GDLD15 }}"/>
+					<input type="hidden" name="NLU"  value="{{ $NLU }}" />
+                    <input type="hidden" name="NLUD" value="{{ $NLUD }}"/>
+                    <input type="hidden" name="NLUD15" value="{{ $NLUD15 }}"/>
+					
                     @for($x = 0; $x < count($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight']); $x++)
                         
                         @for($y = 0; $y < count($flightsFW); $y++)
@@ -74,6 +86,40 @@
                                             
                                             if($minutes > 15)
                                                 $BJXD15 += 1;
+
+                                            while ($minutes >= 60) {
+                                                if ($minutes >= 1440) {
+                                                    $time['days']++;
+                                                    $minutes = $minutes - 1440;
+                                                } else if ($minutes >= 60) {
+                                                    $time['hours']++;
+                                                    $minutes = $minutes - 60;
+                                                }
+                                            }
+
+                                            $time['minutes'] = $minutes;
+                                        @endphp
+                                    @endif
+                                @endif
+								@if($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDep"] == 'CJS')
+                                    @php $CJS += 1; @endphp
+                                    @if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]))
+                                        @php $CJSD += 1; @endphp
+                                        @php
+                                            $time = ['days' => 0, 'hours' => 0, 'minutes' => 0];
+                                            
+                                            if(isset($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][0]["FDelayTime"])){
+                                                $minutes = 0;
+                                                foreach($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]  as $clave => $valor){
+                                                    $minutes += $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"][$clave]["FDelayTime"];
+                                                }
+                                            }
+                                            else{
+                                                $minutes = $flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight'][$x]["FlightDepDelays"]["FlightDelay"]["FDelayTime"];
+                                            }
+
+                                            if($minutes > 15)
+                                                $CJSD15 += 1;
 
                                             while ($minutes >= 60) {
                                                 if ($minutes >= 1440) {
@@ -386,6 +432,50 @@
                         </tr>
                         </thead>
                         <tbody>
+						@if($BJX != 0)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                BJX
+                            </th>
+                            <td class="py-4 px-6">
+                                {{ $BJX }}
+                                <input type="hidden" name="BJX"  value="{{ $BJX }}" />
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $BJXD }}
+                                <input type="hidden" name="BJXD" value="{{ $BJXD }}"/>
+                                <input type="hidden" name="BJXD15" value="{{ $BJXD15 }}"/>
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $BJXD*100/$BJX, 2) }}%
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $BJXD15*100/$BJX, 2) }}%
+                            </td>
+                        </tr>
+                        @endif
+						@if($CJS != 0)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                CJS
+                            </th>
+                            <td class="py-4 px-6">
+                                {{ $CJS }}
+                                <input type="hidden" name="CJS"  value="{{ $CJS }}" />
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $CJSD }}
+                                <input type="hidden" name="CJSD" value="{{ $CJSD }}"/>
+                                <input type="hidden" name="CJSD15" value="{{ $CJSD15 }}"/>
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $CJSD*100/$CJS, 2) }}%
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $CJSD15*100/$CJS, 2) }}%
+                            </td>
+                        </tr>
+                        @endif
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 CUN
@@ -407,6 +497,7 @@
                                 <td class="py-4 px-6">{{ round(100 - $CUND15*100/$CUN, 2) }}%</td>
                             @endif
                         </tr>
+                        @if($GDL != 0)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 GDL
@@ -420,14 +511,14 @@
                                 <input type="hidden" name="GDLD" value="{{ $GDLD }}"/>
                                 <input type="hidden" name="GDLD15" value="{{ $GDLD15 }}"/>
                             </td>
-                            @if($GDL == 0)
-                                <td class="py-4 px-6">{{ 100 }}%</td>
-                                <td class="py-4 px-6">{{ 100 }}%</td>
-                            @else
-                                <td class="py-4 px-6">{{ round(100 - $GDLD*100/$GDL, 2) }}%</td>
-                                <td class="py-4 px-6">{{ round(100 - $GDLD15*100/$GDL, 2) }}%</td>
-                            @endif
+                            <td class="py-4 px-6">
+                                {{ round(100 - $GDLD*100/$GDL, 2) }}%
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $GDLD15*100/$GDL, 2) }}%
+                            </td>
                         </tr>
+                        @endif
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 MEX
@@ -470,6 +561,7 @@
                                 <td class="py-4 px-6">{{ round(100 - $MTYD15*100/$MTY, 2) }}%</td>
                             @endif
                         </tr>
+                        @if($NLU != 0)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 NLU
@@ -483,14 +575,14 @@
                                 <input type="hidden" name="NLUD" value="{{ $NLUD }}"/>
                                 <input type="hidden" name="NLUD15" value="{{ $NLUD15 }}"/>
                             </td>
-                            @if($NLU == 0)
-                                <td class="py-4 px-6">{{ 100 }}%</td>
-                                <td class="py-4 px-6">{{ 100 }}%</td>
-                            @else
-                                <td class="py-4 px-6">{{ round(100 - $NLUD*100/$NLU, 2) }}%</td>
-                                <td class="py-4 px-6">{{ round(100 - $NLUD15*100/$NLU, 2) }}%</td>
-                            @endif
+                            <td class="py-4 px-6">
+                                {{ round(100 - $NLUD*100/$NLU, 2) }}%
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ round(100 - $NLUD15*100/$NLU, 2) }}%
+                            </td>
                         </tr>
+                        @endif
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <B>Total</B>
