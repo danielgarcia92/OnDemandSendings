@@ -26,7 +26,7 @@ class FWACMI extends Component
 
             $params = array(
                 'UN'  => $this->AIMSUser,
-                        'PSW' => $this->AIMSPass,
+                'PSW' => $this->AIMSPass,
                 'PM'  => array(
                     'DepArrMode' => "0",
                     'FromHH'     => "06",
@@ -47,7 +47,7 @@ class FWACMI extends Component
             $response = $soapClient->__soapCall("FlightDetails", array($params));
 
             $this->flightsWS = json_decode(json_encode($response), true);
-            $this->flightsFW = \DB::table('bdAzureDM.vbmxods-infomgt.dbo.tbl_NewOTP AS FL')
+            $this->flightsFW = \DB::table('bdAzureDM.vbmxods-infomgt.dbo.tbl_OTP_Flights AS FL')
                 ->select(['FL.Flight'
                     , 'PortFrom'
                     , 'PortTo'
@@ -85,17 +85,23 @@ class FWACMI extends Component
             'COD'   => 'required',
             'MIN'   => 'required',
             'user'  => 'required',
+			'BJX'   => 'required',
+			'CJS'   => 'required',
             'CUN'   => 'required',
             'GDL'   => 'required',
             'MEX'   => 'required',
             'MTY'   => 'required',
             'NLU'   => 'required',
-            'CUND'  => 'required',
+            'BJXD'  => 'required',
+			'CJSD'  => 'required',
+			'CUND'  => 'required',
             'GDLD'  => 'required',
             'MEXD'  => 'required',
             'MTYD'  => 'required',
             'NLUD'  => 'required',
-            'CUND15' => 'required',
+			'BJXD15' => 'required',
+			'CJSD15' => 'required',
+			'CUND15' => 'required',
             'GDLD15' => 'required',
             'MEXD15' => 'required',
             'MTYD15' => 'required',

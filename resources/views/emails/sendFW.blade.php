@@ -43,6 +43,15 @@
                     <td> {{ round(100 - $data['BJXD15']*100/$data['BJX'], 2) }}% </td>
                 </tr>
                 @endif
+				@if($data['CJS'] != 0)
+                <tr>
+                    <td> CJS </td>
+                    <td> {{ $data['CJS'] }} </td>
+                    <td> {{ $data['CJSD'] }} </td>
+                    <td> {{ round(100 - $data['CJSD']*100/$data['CJS'], 2) }}% </td>
+                    <td> {{ round(100 - $data['CJSD15']*100/$data['CJS'], 2) }}% </td>
+                </tr>
+                @endif
                 @if($data['CUN'] != 0)
                 <tr>
                     <td> CUN </td>
