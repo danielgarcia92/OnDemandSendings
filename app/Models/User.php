@@ -43,4 +43,16 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function getRolAttribute($value): string
+    {
+        return strtolower(trim((string) $value));
+    }
+
+    public function setRolAttribute($value): void
+    {
+        $this->attributes['rol'] = $value === null
+            ? null
+            : strtolower(trim((string) $value));
+    }
 }
