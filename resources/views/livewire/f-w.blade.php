@@ -13,6 +13,11 @@
                     @php $FW=0; $BJX=0; $CJS=0; $CUN=0;  $GDL=0; $MEX=0; $MID=0; $MTY=0; $NLU=0; $TIJ=0; $TLC=0; @endphp
                     @php $FWD=0; $BJXD=0; $CJSD=0; $CUND=0; $GDLD=0; $MEXD=0; $MIDD=0; $MTYD=0; $NLUD=0; $TIJD=0; $TLCD=0; @endphp
                     @php $FWD15=0; $BJXD15=0; $CJSD15=0; $CUND15=0; $GDLD15=0; $MEXD15=0; $MIDD15=0; $MTYD15=0; $NLUD15=0; $TIJD15=0; $TLCD15=0; @endphp
+                    @php
+                        $otpPercent = static function ($total, $delayed) {
+                            return $total > 0 ? round(100 - ($delayed * 100 / $total), 2) : 0;
+                        };
+                    @endphp
                     <input type="hidden" name="BJX"  value="{{ $BJX }}" />
                     <input type="hidden" name="BJXD" value="{{ $BJXD }}"/>
                     <input type="hidden" name="BJXD15" value="{{ $BJXD15 }}"/>
@@ -580,10 +585,10 @@
                                 <input type="hidden" name="BJXD15" value="{{ $BJXD15 }}"/>
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $BJXD*100/$BJX, 2) }}%
+                                {{ $otpPercent($BJX, $BJXD) }}%
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $BJXD15*100/$BJX, 2) }}%
+                                {{ $otpPercent($BJX, $BJXD15) }}%
                             </td>
                         </tr>
                         @endif
@@ -602,10 +607,10 @@
                                 <input type="hidden" name="CJSD15" value="{{ $CJSD15 }}"/>
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $CJSD*100/$CJS, 2) }}%
+                                {{ $otpPercent($CJS, $CJSD) }}%
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $CJSD15*100/$CJS, 2) }}%
+                                {{ $otpPercent($CJS, $CJSD15) }}%
                             </td>
                         </tr>
                         @endif
@@ -624,10 +629,10 @@
                                 <input type="hidden" name="CUND15" value="{{ $CUND15 }}"/>
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $CUND*100/$CUN, 2) }}%
+                                {{ $otpPercent($CUN, $CUND) }}%
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $CUND15*100/$CUN, 2) }}%
+                                {{ $otpPercent($CUN, $CUND15) }}%
                             </td>
                         </tr>
                         @endif
@@ -646,10 +651,10 @@
                                 <input type="hidden" name="GDLD15" value="{{ $GDLD15 }}"/>
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $GDLD*100/$GDL, 2) }}%
+                                {{ $otpPercent($GDL, $GDLD) }}%
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $GDLD15*100/$GDL, 2) }}%
+                                {{ $otpPercent($GDL, $GDLD15) }}%
                             </td>
                         </tr>
                         @endif
@@ -668,10 +673,10 @@
                                 <input type="hidden" name="MEXD15" value="{{ $MEXD15 }}"/>
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $MEXD*100/$MEX, 2) }}%
+                                {{ $otpPercent($MEX, $MEXD) }}%
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $MEXD15*100/$MEX, 2) }}%
+                                {{ $otpPercent($MEX, $MEXD15) }}%
                             </td>
                         </tr>
                         @endif
@@ -690,10 +695,10 @@
                                 <input type="hidden" name="MIDD15" value="{{ $MIDD15 }}"/>
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $MIDD*100/$MID, 2) }}%
+                                {{ $otpPercent($MID, $MIDD) }}%
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $MIDD15*100/$MID, 2) }}%
+                                {{ $otpPercent($MID, $MIDD15) }}%
                             </td>
                         </tr>
                         @endif
@@ -712,10 +717,10 @@
                                 <input type="hidden" name="MTYD15" value="{{ $MTYD15 }}"/>
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $MTYD*100/$MTY, 2) }}%
+                                {{ $otpPercent($MTY, $MTYD) }}%
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $MTYD15*100/$MTY, 2) }}%
+                                {{ $otpPercent($MTY, $MTYD15) }}%
                             </td>
                         </tr>
                         @endif
@@ -734,10 +739,10 @@
                                 <input type="hidden" name="NLUD15" value="{{ $NLUD15 }}"/>
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $NLUD*100/$NLU, 2) }}%
+                                {{ $otpPercent($NLU, $NLUD) }}%
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $NLUD15*100/$NLU, 2) }}%
+                                {{ $otpPercent($NLU, $NLUD15) }}%
                             </td>
                         </tr>
                         @endif
@@ -756,10 +761,10 @@
                                 <input type="hidden" name="TIJD15" value="{{ $TIJD15 }}"/>
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $TIJD*100/$TIJ, 2) }}%
+                                {{ $otpPercent($TIJ, $TIJD) }}%
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $TIJD15*100/$TIJ, 2) }}%
+                                {{ $otpPercent($TIJ, $TIJD15) }}%
                             </td>
                         </tr>
                         @endif
@@ -778,10 +783,10 @@
                                 <input type="hidden" name="TLCD15" value="{{ $TLCD15 }}"/>
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $TLCD*100/$TLC, 2) }}%
+                                {{ $otpPercent($TLC, $TLCD) }}%
                             </td>
                             <td class="py-4 px-6">
-                                {{ round(100 - $TLCD15*100/$TLC, 2) }}%
+                                {{ $otpPercent($TLC, $TLCD15) }}%
                             </td>
                         </tr>
                         @endif
@@ -799,10 +804,10 @@
                                 <input type="hidden" name="FWD15"  value="{{ $FWD15 }}" />
                             </th>
                             <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <B>{{ round(100 - $FWD*100/$FW, 2) }}%</B>
+                                <B>{{ $otpPercent($FW, $FWD) }}%</B>
                             </th>
                             <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <B>{{ round(100 - $FWD15*100/$FW, 2) }}%</B>
+                                <B>{{ $otpPercent($FW, $FWD15) }}%</B>
                             </th>
                         </tr>
                         </tbody>
