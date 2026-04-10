@@ -132,6 +132,7 @@ class MEX extends Component
                     ->get();
 
             } catch (\Throwable $e) {
+                report($e);
                 return view('livewire.redirect');
             }
 

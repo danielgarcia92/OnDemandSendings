@@ -132,6 +132,7 @@ class ASA extends Component
                     ->get();
 
             } catch (\Throwable $e) {
+                report($e);
                 return view('livewire.redirect');
             }
 
