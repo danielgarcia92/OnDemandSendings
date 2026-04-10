@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Fortify\Features;
@@ -31,7 +32,18 @@ class RegistrationTest extends TestCase
 
         $response = $this->get('/register');
 
-        $response->assertStatus(404);
+        $response->assertRedirect('/login');
+    }
+
+    public function test_internal_registration_screen_can_be_rendered_for_admin_users()
+    {
+        $this->actingAs(User::factory()->create([
+            'rol' => 'admin',
+        ]));
+
+        $response = $this->get('/register');
+
+        $response->assertStatus(200);
     }
 
     public function test_new_users_can_register()

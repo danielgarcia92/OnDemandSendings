@@ -5,23 +5,26 @@ namespace Database\Factories;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
 
 class UserFactory extends Factory
 {
-    /**  @var string */
+    /** @var string */
     protected $model = User::class;
 
-    /**  @return array */
+    protected static ?string $password;
+
+    /** @return array */
     public function definition()
     {
         return [
-            'name' => 'Daniel García',
+            'name' => $this->faker->name(),
             'rol' => 'admin',
-            'email' => 'daniel.garciav@vivaaerobus.com',
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$iz9KPL69LiQcoZGxD6RqvO8WX6lBhuy1ymRUAE4wGaXh8.c0r.WYi',
+            'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
     }

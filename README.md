@@ -7,10 +7,20 @@ OnDemandSendings
 $ composer install
 ```
 
->You have to create a database to use TDD.
+>This project is now targeted to PHP 8.3.
 ```
-CREATE DATABASE testPhpUnit;
+Runtime extensions: sqlsrv, pdo_sqlsrv, soap
+Test extensions: pdo_sqlite, sqlite3
 ```
+
+>If your SQL Server client needs it, configure these env vars:
+```
+DB_ENCRYPT=no
+DB_TRUST_SERVER_CERTIFICATE=yes
+DB_LOGIN_TIMEOUT=5
+```
+
+>TDD runs on SQLite in memory, so tests do not need a SQL Server database.
 
 ### Test-driven development TDD
 ````

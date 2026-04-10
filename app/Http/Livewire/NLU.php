@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 class NLU extends Component
 {
     public $showDiv = false;
+    public $flights1 = [];
+    public $flights2 = [];
+    public $flightsHGR1 = [];
+    public $flightsHGR2 = [];
 
     public function render()
     {
@@ -127,7 +131,7 @@ class NLU extends Component
                     ->orderBy('FL.STA')
                     ->get();
 
-            }catch(Exception $e){
+            } catch (\Throwable $e) {
                 return view('livewire.redirect');
             }
 

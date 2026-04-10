@@ -10,12 +10,15 @@ class CSVExport implements FromView
 {
     use Exportable;
 
-    function __construct($data){
+    private array $data;
+
+    public function __construct(array $data)
+    {
         $this->data = $data;
     }
 
-    public function View(): View {
-
+    public function view(): View
+    {
         return view('exports.exportCSV', [
             'data' => $this->data
         ]);

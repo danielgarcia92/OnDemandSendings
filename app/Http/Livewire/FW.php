@@ -10,23 +10,19 @@ use Illuminate\Support\Facades\Mail;
 
 class FW extends Component
 {
-    public function __construct()
-    {
-        $this->baseUri  = env('BASE_URI');
-        $this->AIMSUser = env('AIMS_USER');
-        $this->AIMSPass = env('AIMS_Pass');
-        $this->baseLocation  = env('BASE_LOCATION');
-    }
+    public array $flightsWS = [];
+    public $flightsFW = [];
 
     public function render()
     {
         if (Auth::user()->rol == 'admin' || Auth::user()->rol == 'jt' || Auth::user()->rol == 'ccv') {
+            $aimsConfig = $this->aimsConfig();
 
             date_default_timezone_set('America/Monterrey');				
 
     		$params = array(
-    			'UN'  => $this->AIMSUser,
-                		'PSW' => $this->AIMSPass,
+    			'UN'  => $aimsConfig['user'],
+                		'PSW' => $aimsConfig['password'],
     			'PM'  => array(
     				'DepArrMode' => "0",
                 	'FromHH'     => "06",
@@ -42,8 +38,8 @@ class FW extends Component
     			)
             );
 
-    		$options = array('location'=> $this->baseLocation);
-    		$soapClient = new \soapclient($this->baseUri, $options);
+    		$options = array('location'=> $aimsConfig['location']);
+    		$soapClient = new \SoapClient($aimsConfig['wsdl'], $options);
     		$response = $soapClient->__soapCall("FlightDetails", array($params));
 
             $this->flightsWS = json_decode(json_encode($response), true);
@@ -121,5 +117,15 @@ class FW extends Component
         Mail::bcc('fwdiario@vivaaerobus.com')->queue(new SendFW($data));
 
         return redirect()->route('dashboard');
+    }
+
+    private function aimsConfig(): array
+    {
+        return [
+            'wsdl' => env('BASE_URI'),
+            'user' => env('AIMS_USER'),
+            'password' => env('AIMS_Pass'),
+            'location' => env('BASE_LOCATION'),
+        ];
     }
 }
