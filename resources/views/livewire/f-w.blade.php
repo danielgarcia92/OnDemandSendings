@@ -27,6 +27,15 @@
                     <input type="hidden" name="CUN"  value="{{ $CUN }}" />
                     <input type="hidden" name="CUND" value="{{ $CUND }}"/>
                     <input type="hidden" name="CUND15" value="{{ $CUND15 }}"/>
+					<input type="hidden" name="GDL"  value="{{ $GDL }}" />
+                    <input type="hidden" name="GDLD" value="{{ $GDLD }}"/>
+                    <input type="hidden" name="GDLD15" value="{{ $GDLD15 }}"/>
+					<input type="hidden" name="MID"  value="{{ $MID }}" />
+                    <input type="hidden" name="MIDD" value="{{ $MIDD }}"/>
+                    <input type="hidden" name="MIDD15" value="{{ $MIDD15 }}"/>
+					<input type="hidden" name="TLC"  value="{{ $TLC }}" />
+                    <input type="hidden" name="TLCD" value="{{ $TLCD }}"/>
+                    <input type="hidden" name="TLCD15" value="{{ $TLCD15 }}"/>
 
                     @for($x = 0; $x < count($flightsWS['FlightDetailsResult']['FlightList']['TAIMSFlight']); $x++)
                         
